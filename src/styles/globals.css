@@ -1,0 +1,28 @@
+/* Use the Tailwind v4 import syntax */
+@import "tailwindcss";
+
+/* Tell Tailwind v4 to load our custom design tokens from the config file */
+@config "../../tailwind.config.ts";
+
+@layer base {
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  /* Ensures inputs don't zoom on iOS devices */
+  input, textarea, select {
+    font-size: 16px;
+  }
+
+  /* Focus ring fallback for accessibility */
+  *:focus-visible {
+    /* We replaced the theme() function with the direct Hex color to bypass the v4 parser error */
+    outline: 2px solid #F97316;
+    outline-offset: 2px;
+  }
+}
