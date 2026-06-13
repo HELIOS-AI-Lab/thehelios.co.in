@@ -21,11 +21,11 @@ const GitHubIcon = (props: any) => <svg viewBox="0 0 24 24" fill="currentColor" 
           <div className="md:col-span-4 flex flex-col items-start">
             <Link href="/" className="flex items-center gap-3 font-bold text-[16px] text-text-primary mb-5 tracking-tight">
               <Image 
-                src="/assets/helios-ai-logo.png" 
+                src="/assets/helios-ai-logo-v2.png" 
                 alt="HELIOS AI Labs Logo" 
-                width={28} 
-                height={28}
-                className="object-contain"
+                width={1254} 
+                height={1254}
+                className="object-contain h-7 w-7"
               />
               HELIOS AI Labs
             </Link>

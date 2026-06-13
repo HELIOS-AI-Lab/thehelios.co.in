@@ -35,7 +35,7 @@ export default function HomePage() {
       <Head>
         <title>HELIOS AI Labs | Transform Your Financial Future</title>
         <meta name="description" content="HELIOS AI Labs is building the next era of intelligence across learning, wealth, and innovation." />
-        <link rel="icon" type="image/png" href="/helios-ai-logo.png" />
+        <link rel="icon" type="image/png" href="/helios-ai-logo-v2.png" />
       </Head>
 
       {/* Hero Section - High Impact Inverse Theme */}

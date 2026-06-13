@@ -42,11 +42,11 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3 font-bold text-[15px] tracking-tight group">
           <div className="relative w-8 h-8 rounded overflow-hidden flex items-center justify-center bg-white/5 border border-white/10 group-hover:border-accent-500/50 transition-colors">
             <Image 
-              src="/assets/helios-ai-logo.png" 
+              src="/assets/helios-ai-logo-v2.png" 
               alt="HELIOS AI Labs Logo" 
-              width={32} 
-              height={32}
-              className="object-contain"
+              width={1254} 
+              height={1254}
+              className="object-contain h-full w-full"
               priority
             />
           </div>

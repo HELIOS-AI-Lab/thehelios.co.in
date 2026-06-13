@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/helios-ai-logo-v2.png" />
       </Head>
       
       {/* The font variables are injected into the main wrapper.

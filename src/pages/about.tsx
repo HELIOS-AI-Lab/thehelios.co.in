@@ -137,6 +137,27 @@ export default function AboutPage() {
           </Card>
         </motion.div>
 
+        {/* Partner Card */}
+        <motion.div variants={fadeInUp} initial="initial" whileInView="whileInView" className="mb-12">
+          <Card variant="flat" className="md:flex items-stretch">
+            <div className="bg-neutral-100 md:w-[320px] shrink-0 p-8 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border-default">
+              <h3 className="text-[22px] font-bold text-primary-700 mb-1">Srinivas Dharani</h3>
+              <p className="text-[13px] font-semibold uppercase tracking-wider text-accent-700 mb-4">Partner & AI-Driven Data Architect</p>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-border-default text-[12px] font-medium w-fit">
+                8+ Years Experience
+              </div>
+            </div>
+            <CardBody className="p-8 md:p-10 flex flex-col justify-center">
+              <p className="text-[15px] text-text-secondary leading-relaxed mb-4">
+                Srinivas brings 8+ years of expertise in data engineering, cloud architecture, and intelligent automation. His work spans large-scale data platforms, AWS ecosystems, and AI-powered solutions, transforming complex business challenges into scalable, production-ready systems.
+              </p>
+              <p className="text-[15px] text-text-secondary leading-relaxed">
+                At HELIOS AI Labs, he focuses on building next-generation data and AI infrastructures that enable organizations to turn data into intelligence, automation, and measurable business impact.
+              </p>
+            </CardBody>
+          </Card>
+        </motion.div>
+
         {/* Core Team Grid */}
         <motion.div 
           variants={staggerContainer} 

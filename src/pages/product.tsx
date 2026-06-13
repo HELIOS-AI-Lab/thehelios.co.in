@@ -58,9 +58,11 @@ export default function ProductPage() {
           }
           subtitle="HELIOS is more than an app. It’s an evolving AI-powered ecosystem designed to help Bharat’s people think, invest, and grow—intelligently. We bring together Reinforcement Learning, Financial Literacy, and Local Language AI to make wealth creation accessible to all."
           primaryAction={
-            <Button variant="primary" size="lg" trailingIcon={<ArrowRight className="w-4 h-4" />}>
-              Get Early Access
-            </Button>
+            <a href="https://helios-tech.co.in" target="_blank" rel="noopener noreferrer">
+              <Button variant="primary" size="lg" trailingIcon={<ArrowRight className="w-4 h-4" />}>
+                Get Early Access
+              </Button>
+            </a>
           }
         />
       </motion.div>
