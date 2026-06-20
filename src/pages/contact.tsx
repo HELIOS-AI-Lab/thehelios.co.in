@@ -67,13 +67,13 @@ export default function ContactPage() {
 
             {/* Social Proof/Connect */}
             <div className="mt-16 pt-8 border-t border-border-subtle flex gap-6">
-              <a href="https://linkedin.com/company/helios-ai-labs" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-text-secondary hover:text-link-600 transition-colors">
+              <a href="https://www.linkedin.com/company/heliosailabs/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-text-secondary hover:text-link-600 transition-colors">
                 <LinkedInIcon className="w-5 h-5" />
                 <span className="text-[14px] font-bold">LinkedIn</span>
               </a>
               <a href="https://twitter.com/heliosailabs" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-text-secondary hover:text-primary-700 transition-colors">
                 <XIcon className="w-5 h-5" />
-                <span className="text-[14px] font-bold">Twitter</span>
+                <span className="text-[14px] font-bold">X</span>
               </a>
             </div>
           </motion.div>

@@ -41,7 +41,7 @@ export default function ProductPage() {
     <Layout>
       <Head>
         <title>HELIOS Buddy | Your AI Financial Companion</title>
-        <meta name="description" content="Bharat's Open AI Wealth Engine. HELIOS is an evolving AI-powered ecosystem designed to help you think, invest, and grow." />
+        <meta name="description" content="Bharat's Open AI Wealth Engine.HELIOS is an evolving AI-powered ecosystem designed to help Bharat's people think, invest, and grow — intelligently." />
       </Head>
 
       {/* Hero Section */}
@@ -52,7 +52,7 @@ export default function ProductPage() {
           // badge="Bharat's Open AI Wealth Engine"
           title={
             <>
-              Your Local, Trusted,<br />
+              Your Local,Trusted,<br />
               <span className="text-accent-700">AI Financial Buddy</span>
             </>
           }
@@ -134,7 +134,7 @@ export default function ProductPage() {
               </CardHeader>
               <CardBody className="flex-1 flex flex-col gap-6">
                 <p className="text-[14px] text-text-secondary">
-                  Combines AI data crunching with Human support to guide users through personalized, goal-based portfolios.
+                  Combines AI data crunching with human support to guide users through personalized, goal-based portfolios.
                 </p>
                 <ul className="space-y-3 mt-auto">
                   {[
@@ -201,9 +201,11 @@ export default function ProductPage() {
               <p className="text-[16px] text-white/70 leading-relaxed mb-8">
                 The future isn’t just coded. It’s felt. HELIOS is AI with a human heartbeat, explaining itself clearly, and helping you act wisely.
               </p>
-              <Button variant="primary" size="md">
-                Read our technical whitepaper
-              </Button>
+              <a href="/about">
+<Button variant="primary" size="md">
+  Read our technical whitepaper
+</Button>
+</a>
             </motion.div>
 
             {/* Tech Stack Grid */}

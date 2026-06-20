@@ -24,12 +24,11 @@ export default function CookiesPage() {
         <motion.div initial="initial" animate="animate" variants={fadeInUp}>
           
           <div className="mb-16 border-b border-border-default pb-8">
-            {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary-50 border border-primary-100 text-[12px] font-bold uppercase tracking-widest text-primary-700 mb-6">
-              <Cookie className="w-4 h-4" /> Tracking Protocol
-            </div> */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary-50 border border-primary-100 text-[12px] font-bold uppercase tracking-widest text-primary-700 mb-6">
+  <Cookie className="w-4 h-4" /> Tracking Protocol
+</div>
             <h1 className="text-[36px] md:text-[48px] font-bold text-primary-700 mb-4 tracking-tight">Cookie Policy</h1>
-            <p className="text-text-secondary text-[15px] font-mono">Effective Date: April 2026 · Helios AI Labs Pvt Ltd</p>
-          </div>
+<p className="text-text-secondary text-[15px] font-mono">Effective Date: April 2026 &nbsp;·&nbsp; Helios AI Labs Pvt Ltd</p>          </div>
 
           <div className="space-y-12 text-[15px] text-text-secondary leading-relaxed">
             

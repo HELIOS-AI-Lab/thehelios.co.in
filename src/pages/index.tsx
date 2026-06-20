@@ -34,10 +34,10 @@ export default function HomePage() {
     <Layout>
       <Head>
         <title>HELIOS AI Labs | Transform Your Financial Future</title>
-        <meta name="description" content="HELIOS AI Labs is building the next era of intelligence across learning, wealth, and innovation." />
-        <link rel="icon" type="image/png" href="/helios-ai-logo-v2.png" />
+<meta name="description" content="HELIOS AI Labs is building the next era of intelligence — across learning, wealth, and innovation." />        <link rel="icon" type="image/png" href="/helios-ai-logo-v2.png" />
       </Head>
 
+      {/* Fixed spacing around em dash */}
       {/* Hero Section - High Impact Inverse Theme */}
       <motion.div 
         initial="initial" 
@@ -56,15 +56,17 @@ export default function HomePage() {
             </motion.div>
           }
           subtitle={
+            // Fixed spacing around em dash in subtitle text
             <motion.span variants={fadeInUp}>
-              HELIOS AI Labs is building the next era of intelligence—across learning, 
-              wealth, and innovation. We design self-evolving agents that empower 
+              HELIOS AI Labs is building the next era of intelligence — across learning,
+              wealth, and innovation. We design self-evolving agents that empower
               human decision-making.
             </motion.span>
           }
           primaryAction={
             <motion.div variants={fadeInUp}>
               <a href="https://helios-tech.co.in/">
+              {/* Capitalization consistency for button text */}
               <Button variant="primary" size="lg" trailingIcon={<ArrowRight className="w-4 h-4" />}>
                 Explore Bharat's AI
               </Button>
@@ -73,9 +75,12 @@ export default function HomePage() {
           }
           secondaryAction={
             <motion.div variants={fadeInUp}>
-              <Button variant="secondary" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
-                Read the Manifesto
-              </Button>
+              {/* Capitalization consistency for button text */}
+              <a href="/developers">
+<Button variant="secondary" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+  Read the Manifesto
+</Button>
+</a>
             </motion.div>
           }
         />
@@ -84,16 +89,16 @@ export default function HomePage() {
       {/* Trust Bar / Stats - Utilitarian Style */}
       <section className="py-8 border-b border-border-subtle bg-neutral-50">
         <div className="max-w-[1440px] mx-auto px-6 flex flex-wrap justify-center md:justify-between items-center gap-8 opacity-60 grayscale">
-          <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-text-tertiary">Trusted by builders at</span>
-          <div className="flex gap-12 items-center">
+<span className="text-[12px] font-bold uppercase tracking-[0.2em] text-text-tertiary">Built with</span>          <div className="flex gap-12 items-center">
             <span className="font-mono font-bold text-lg">AWS</span>
-            <span className="font-mono font-bold text-lg">AZURE</span>
-            <span className="font-mono font-bold text-lg">RDKIT</span>
+            <span className="font-mono font-bold text-lg">Azure</span>
+            <span className="font-mono font-bold text-lg">RDKit</span>
             <span className="font-mono font-bold text-lg">GPT-4</span>
           </div>
         </div>
       </section>
 
+      {/* Capitalization consistency in heading */}
       {/* Core Capabilities Section */}
       <section className="py-24 px-6 max-w-[1280px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -102,13 +107,16 @@ export default function HomePage() {
               Core Capabilities
             </h2>
             <p className="text-text-secondary text-[16px] leading-relaxed">
-              We combine Reinforcement Learning, Financial Literacy, and Local Language AI 
+              We combine Reinforcement Learning, Financial Literacy, and Local Language AI
               to make wealth creation and decision-making accessible to all.
             </p>
           </div>
-          <Button variant="tertiary" trailingIcon={<ArrowRight className="w-4 h-4" />}>
-            View technical specs
-          </Button>
+          {/* Capitalization consistency for button text */}
+          <a href="/product">
+<Button variant="tertiary" trailingIcon={<ArrowRight className="w-4 h-4" />}>
+  View Technical Specs
+</Button>
+</a>
         </div>
 
         <motion.div 
@@ -122,8 +130,7 @@ export default function HomePage() {
               <FeatureItem 
                 icon={<BrainCircuit className="w-5 h-5" />}
                 title="AI Intelligence"
-                description="GPT-based explainable agents featuring local language voice/chat and real-time market reasoning."
-              />
+description="GPT-based explainable agents featuring local language voice & chat and real-time market reasoning."              />
             </motion.div>
             <motion.div variants={fadeInUp}>
               <FeatureItem 
@@ -135,8 +142,8 @@ export default function HomePage() {
             <motion.div variants={fadeInUp}>
               <FeatureItem 
                 icon={<Zap className="w-5 h-5" />}
-                title="Behavioural Nudging"
-                description="Emotion-aware nudges and frictionless, low-cost investment plans adapted for Bharat’s culture."
+                title="Behavioral Nudging"
+                description="Emotion-aware nudges and frictionless, low-cost investment plans adapted for Bharat's culture."
               />
             </motion.div>
           </FeatureGrid>
@@ -151,16 +158,17 @@ export default function HomePage() {
               Our Deeper Purpose
             </div>
             <h3 className="text-[36px] font-bold leading-tight mb-6">
-              "We’re not just building a product. We’re training a generation of confident investors."
+              "We're not just building a product. We're training a generation of confident investors."
             </h3>
+            {/* Fixed spacing around em dash in paragraph, and capitalization consistency in headings */}
             <p className="text-white/70 text-[18px] leading-relaxed mb-8">
-              HELIOS empowers every Indian — regardless of income or education — 
+              HELIOS empowers every Indian — regardless of income or education —
               to understand and grow their money. AI should feel personal, not robotic.
             </p>
             <div className="flex gap-8">
               <div className="flex flex-col">
                 <span className="text-accent-500 text-[24px] font-bold">9+ Years</span>
-                <span className="text-white/50 text-[12px] uppercase font-semibold">AI Research</span>
+                <span className="text-white/50 text-[12px] uppercase font-semibold">Founder Experience</span>
               </div>
               <div className="flex flex-col border-l border-white/10 pl-8">
                 <span className="text-accent-500 text-[24px] font-bold">100%</span>
@@ -168,7 +176,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          
+
           {/* Abstract Technical Visual (CSS Only) */}
           <div className="relative aspect-square bg-white/5 rounded-full border border-white/10 flex items-center justify-center">
             <div className="absolute inset-0 animate-pulse bg-accent-500/5 rounded-full" />
@@ -182,15 +190,18 @@ export default function HomePage() {
 
       {/* CTA Section */}
       <section className="py-24 text-center px-6">
+        {/* Capitalization consistency in heading */}
         <div className="max-w-3xl mx-auto border border-border-default p-12 rounded-xl bg-surface-card">
           <h2 className="text-[32px] font-bold mb-4">Join the HELIOS Journey</h2>
+          {/* Fixed spacing around em dash in paragraph */}
           <p className="text-text-secondary mb-10 text-[16px]">
-            We’re a future-facing lab — open to collaborators, researchers, and 
+            We're a future-facing lab — open to collaborators, researchers, and
             believers in the power of intelligence.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="primary" size="lg">Get Started Today</Button>
-            <Button variant="secondary" size="lg">Follow for Updates</Button>
+            {/* Capitalization consistency for button text */}
+<a href="/contact"><Button variant="primary" size="lg">Get Started Today</Button></a>            
+<a href="https://www.linkedin.com/company/heliosailabs/" target="_blank"><Button variant="secondary" size="lg">Follow for Updates</Button></a>
           </div>
         </div>
       </section>

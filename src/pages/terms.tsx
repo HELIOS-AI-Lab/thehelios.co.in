@@ -28,7 +28,7 @@ export default function TermsPage() {
               <Scale className="w-4 h-4" /> Legal Agreement
             </div>
             <h1 className="text-[36px] md:text-[48px] font-bold text-primary-700 mb-4 tracking-tight">Terms of Service</h1>
-            <p className="text-text-secondary text-[15px] font-mono">Effective Date: April 2026 · Helios AI Labs Pvt Ltd</p>
+            <p className="text-text-secondary text-[15px] font-mono">Effective Date: April 2026 &nbsp;·&nbsp; Helios AI Labs Pvt Ltd</p>
           </div>
 
           <div className="space-y-12 text-[15px] text-text-secondary leading-relaxed">
@@ -45,7 +45,7 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-[20px] font-bold text-primary-700 mb-4">1. Agreement & Platform Access</h2>
-              <p>By accessing the HELIOS AI Wealth Engine, you agree to be bound by these Terms. The platform is operated by Helios AI Labs Pvt Ltd, registered in Helios AI, Telangana. You agree to use the platform solely for its intended purpose: intelligent, human-centric financial tracking and education.</p>
+              <p>By accessing the HELIOS AI Wealth Engine, you agree to be bound by these Terms. The platform is operated by Helios AI Labs Pvt Ltd, registered in Bejjanki, Telangana. You agree to use the platform solely for its intended purpose: intelligent, human-centric financial tracking and education.</p>
             </section>
 
             <section>

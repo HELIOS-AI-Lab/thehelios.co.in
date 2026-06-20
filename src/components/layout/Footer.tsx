@@ -61,8 +61,7 @@ const GitHubIcon = (props: any) => <svg viewBox="0 0 24 24" fill="currentColor" 
             <ul className="flex flex-col gap-3">
               <li><Link href="/students" className="text-text-secondary hover:text-primary-700 hover:underline transition-colors">Students</Link></li>
               <li><Link href="/developers" className="text-text-secondary hover:text-primary-700 hover:underline transition-colors">Developers</Link></li>
-              <li><a href="#" className="text-text-secondary hover:text-primary-700 hover:underline transition-colors">Research Papers</a></li>
-            </ul>
+<li><span className="text-text-secondary">Research Papers</span></li>            </ul>
           </div>
 
           {/* Newsletter / Waitlist Col (Spans 4 cols) */}

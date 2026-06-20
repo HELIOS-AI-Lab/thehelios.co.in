@@ -66,9 +66,9 @@ export default function StudentsPage() {
           </Button>
         }
         secondaryAction={
-          <Button variant="secondary" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20" leadingIcon={<ArrowDown className="w-4 h-4" />}>
-            Explore Curriculum
-          </Button>
+          <Button variant="secondary" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20" leadingIcon={<ArrowDown className="w-4 h-4" />} onClick={scrollToApply}>
+  Explore Curriculum
+</Button>
         }
       />
 
@@ -202,7 +202,7 @@ export default function StudentsPage() {
             <div className="p-5 rounded-lg bg-primary-50 border border-primary-100">
               <p className="text-[12px] font-bold text-primary-700 uppercase tracking-wider mb-3">Requirements</p>
               <ul className="text-[13px] text-primary-800 space-y-2.5 list-disc pl-4 font-medium">
-                <li>Currently enrolled in B.Tech/M.Tech (CSE/IT/EEE)</li>
+                <li>Currently enrolled in B.Tech / M.Tech (CSE / IT / EEE)</li>
                 <li>Proficiency in Python, React, or MLOps</li>
                 <li>Strong foundation in Data Structures</li>
               </ul>

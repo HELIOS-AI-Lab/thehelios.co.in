@@ -51,14 +51,18 @@ export default function DevelopersPage() {
         title="HELIOS Developers & Thinkers"
         subtitle="We welcome engineers, researchers, and builders who care about the future of AI, intelligence, and meaningful design. We're looking for people who don’t just want to 'deploy a model' — but want to question, shape, and humanize AI in financial, educational, and social spaces."
         primaryAction={
-          <Button variant="primary" size="lg" trailingIcon={<ArrowRight className="w-4 h-4" />}>
-            View Open Roles
-          </Button>
+          <a href="/contact">
+<Button variant="primary" size="lg" trailingIcon={<ArrowRight className="w-4 h-4" />}>
+  View Open Roles
+</Button>
+</a>
         }
         secondaryAction={
-          <Button variant="secondary" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20" leadingIcon={<GitBranch className="w-4 h-4" />}>
-            Read the Docs
-          </Button>
+          <a href="/about">
+<Button variant="secondary" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20" leadingIcon={<GitBranch className="w-4 h-4" />}>
+  Read the Docs
+</Button>
+</a>
         }
       />
 
@@ -84,9 +88,9 @@ export default function DevelopersPage() {
           {[
             { title: 'Reinforcement Learning', desc: 'For portfolio optimization and dynamic risk modeling.' },
             { title: 'Generative AI', desc: 'Applied explicitly for scalable financial literacy and education.' },
-            { title: 'Local Language LLMs', desc: 'Coupled with explainable UX for Bharat’s diverse demographics.' },
+            { title: 'Local Language LLMs', desc: "Coupled with explainable UX for Bharat's diverse demographics." },
             { title: 'Vector Stores & Memory', desc: 'Building long-term RL planning and persistent memory agents.' },
-            { title: 'Human + AI Co-pilots', desc: 'Systems designed for collaborative, better decision making.' },
+            { title: 'Human + AI Co-pilots', desc: 'Systems designed for collaborative, better decision-making.' },
             { title: 'Behavioral Alignment', desc: 'Research around regret bounds, reward shaping, and ethical nudges.' },
             { title: 'Humanized Agents', desc: 'AI agents that feel native, transparent, and human — not robotic.' },
           ].map((item, i) => (
@@ -211,9 +215,11 @@ export default function DevelopersPage() {
 
               <div className="pt-8 border-t border-primary-700">
                 <p className="text-[12px] text-white/40 mb-4">~ % ./join_mission.sh</p>
-                <Button variant="primary" size="md" className="font-sans">
-                  Apply as an Engineer
-                </Button>
+                <a href="/contact">
+<Button variant="primary" size="md" className="font-sans">
+  Apply as an Engineer
+</Button>
+</a>
               </div>
             </div>
           </div>

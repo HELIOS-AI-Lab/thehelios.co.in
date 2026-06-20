@@ -28,7 +28,7 @@ export default function PrivacyPage() {
               <ShieldCheck className="w-4 h-4" /> Data Protocol
             </div>
             <h1 className="text-[36px] md:text-[48px] font-bold text-primary-700 mb-4 tracking-tight">Privacy Policy</h1>
-            <p className="text-text-secondary text-[15px] font-mono">Effective Date: April 2026 · Helios AI Labs Pvt Ltd</p>
+            <p className="text-text-secondary text-[15px] font-mono">Effective Date: April 2026 &nbsp;·&nbsp; Helios AI Labs Pvt Ltd</p>
           </div>
 
           <div className="space-y-12 text-[15px] text-text-secondary leading-relaxed">

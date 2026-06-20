@@ -50,9 +50,8 @@ export default function AboutPage() {
           theme="light"
           // badge="Who We Are"
           alignment="left"
-          title="Welcome To HELIOS AI Labs"
-          subtitle="We are a future-facing lab—open to collaborators, researchers, and believers in the power of intelligence."
-        />
+          title="Welcome to HELIOS AI Labs"
+subtitle="We are a future-facing lab — open to collaborators, researchers, and believers in the power of intelligence."        />
       </motion.div>
 
       {/* Mission & Vision Section */}
@@ -75,8 +74,7 @@ export default function AboutPage() {
                 Rooted in deep reinforcement learning, generative AI, and modular architectures, we are designing systems that learn continuously, adapt responsibly, and empower human decision-making — not replace it.
               </p>
               <p className="font-medium text-text-primary">
-                Starting with Bharat and scaling globally, HELIOS is committed to making AI not just powerful, but purposeful—a true companion in shaping the future of insight, action, and trust.
-              </p>
+Starting with Bharat and scaling globally, HELIOS is committed to making AI not just powerful, but purposeful — a true companion in shaping the future of insight, action, and trust.              </p>
             </div>
           </motion.div>
 
@@ -128,7 +126,7 @@ export default function AboutPage() {
             </div>
             <CardBody className="p-8 md:p-10 flex flex-col justify-center">
               <p className="text-[15px] text-text-secondary leading-relaxed mb-4">
-                Srikanth brings over 9+ years of experience in data science, machine learning, and intelligent systems. His work spans healthcare, telecom, and finance — integrating reinforcement learning, generative AI, and interpretable ML to build agents that adapt and act in dynamic, real-world environments.
+                Srikanth brings 9+ years of experience in data science, machine learning, and intelligent systems. His work spans healthcare, telecom, and finance — integrating reinforcement learning, generative AI, and interpretable ML to build agents that adapt and act in dynamic, real-world environments.
               </p>
               <p className="text-[15px] text-text-secondary leading-relaxed">
                 At HELIOS, he leads the vision of creating modular, explainable, and self-evolving AI agents — designed to think, learn, and improve continuously across domains.
@@ -149,7 +147,7 @@ export default function AboutPage() {
             </div>
             <CardBody className="p-8 md:p-10 flex flex-col justify-center">
               <p className="text-[15px] text-text-secondary leading-relaxed mb-4">
-                Srinivas brings 8+ years of expertise in data engineering, cloud architecture, and intelligent automation. His work spans large-scale data platforms, AWS ecosystems, and AI-powered solutions, transforming complex business challenges into scalable, production-ready systems.
+                Srinivas brings 8+ years of expertise in data engineering, cloud architecture, and intelligent automation. His work spans large-scale data platforms,AWS ecosystems, and AI-powered solutions — transforming complex business challenges into scalable, production-ready systems.
               </p>
               <p className="text-[15px] text-text-secondary leading-relaxed">
                 At HELIOS AI Labs, he focuses on building next-generation data and AI infrastructures that enable organizations to turn data into intelligence, automation, and measurable business impact.
