@@ -1,70 +1,127 @@
-'use client';
-
 import React from 'react';
-import Head from 'next/head';
 import { motion } from 'framer-motion';
 import { Cookie, Settings, Activity } from 'lucide-react';
-import Layout from '@/components/layout/Layout';
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-};
+import Seo from '@/components/shared/Seo';
+import LegalLayout, { LegalSection } from '@/components/shared/LegalLayout';
+import { riseIn, staggerContainer, VIEWPORT_ONCE } from '@/lib/motion';
+import {
+  breadcrumbSchema,
+  buildJsonLd,
+  organizationSchema,
+  webPageSchema,
+} from '@/lib/structured-data';
+
+const DESCRIPTION =
+  'Cookie and tracking technology policy for HELIOS AI Labs — which cookies are essential, what we cache locally, and how to manage your preferences.';
+
+const categories = [
+  {
+    icon: <Settings className="h-6 w-6 text-accent-500" />,
+    title: 'Essential and security',
+    description:
+      'Strictly necessary for platform operation. This includes JWT tokens for secure authentication, preventing CSRF attacks, and maintaining active sessions while you interact with your financial portfolio.',
+  },
+  {
+    icon: <Activity className="h-6 w-6 text-link-500" />,
+    title: 'Agent context and preferences',
+    description:
+      'We use local storage to cache your preferred local language (for example Hindi or Telugu) and temporary conversational context, so our GPT-based agents respond rapidly without excessive server round-trips.',
+  },
+];
+
+const jsonLd = buildJsonLd(
+  organizationSchema(),
+  webPageSchema({
+    path: '/cookies',
+    title: 'Cookie Policy',
+    description: DESCRIPTION,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Cookie Policy', path: '/cookies' },
+  ])
+);
 
 export default function CookiesPage() {
   return (
-    <Layout>
-      <Head>
-        <title>Cookie Policy | HELIOS AI Labs</title>
-        <meta name="description" content="Cookie and Tracking Technology Policy for HELIOS AI Labs." />
-      </Head>
-      
-      <section className="py-24 px-6 max-w-[840px] mx-auto">
-        <motion.div initial="initial" animate="animate" variants={fadeInUp}>
-          
-          <div className="mb-16 border-b border-border-default pb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary-50 border border-primary-100 text-[12px] font-bold uppercase tracking-widest text-primary-700 mb-6">
-  <Cookie className="w-4 h-4" /> Tracking Protocol
-</div>
-            <h1 className="text-[36px] md:text-[48px] font-bold text-primary-700 mb-4 tracking-tight">Cookie Policy</h1>
-<p className="text-text-secondary text-[15px] font-mono">Effective Date: April 2026 &nbsp;·&nbsp; Helios AI Labs Pvt Ltd</p>          </div>
+    <>
+      <Seo
+        title="Cookie Policy"
+        description={DESCRIPTION}
+        path="/cookies"
+        type="article"
+        jsonLd={jsonLd}
+      />
 
-          <div className="space-y-12 text-[15px] text-text-secondary leading-relaxed">
-            
-            <section>
-              <p className="text-[16px] text-primary-800 font-medium">
-                To provide a seamless, culturally-adapted, and secure AI companion, HELIOS AI Labs utilizes cookies and local storage mechanisms. This policy outlines what we track and why it is necessary for our intelligent agents to function.
-              </p>
-            </section>
+      <LegalLayout
+        eyebrow="Tracking Protocol"
+        icon={<Cookie className="h-4 w-4" />}
+        title="Cookie Policy"
+        effectiveDate="1 April 2026"
+        effectiveDateISO="2026-04-01"
+      >
+        <LegalSection>
+          <p className="text-[16px] font-medium text-primary-800">
+            To provide a seamless, culturally adapted, and secure AI companion,
+            HELIOS AI Labs uses cookies and local storage mechanisms. This policy
+            outlines what we track and why it is necessary for our intelligent
+            agents to function.
+          </p>
+        </LegalSection>
 
-            <div className="grid md:grid-cols-2 gap-6 mt-8">
-              <div className="p-6 border border-border-default bg-surface-card rounded-lg">
-                <Settings className="w-6 h-6 text-accent-500 mb-4" />
-                <h3 className="text-[16px] font-bold text-primary-700 mb-2">Essential & Security</h3>
-                <p className="text-[13px]">Strictly necessary for platform operation. This includes JWT tokens for secure authentication, preventing CSRF attacks, and maintaining active sessions while you interact with your financial portfolio.</p>
-              </div>
+        <LegalSection title="What we store">
+          <motion.div
+            variants={staggerContainer(0.1)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT_ONCE}
+            className="mt-2 grid gap-6 md:grid-cols-2"
+          >
+            {categories.map((category) => (
+              <motion.div
+                key={category.title}
+                variants={riseIn}
+                whileHover={{ y: -5 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 26 }}
+                className="group relative overflow-hidden rounded-lg border border-border-default bg-surface-card p-6 transition-colors duration-300 hover:border-accent-500/40 hover:shadow-lift"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-accent-500 to-transparent transition-transform duration-500 ease-standard group-hover:scale-x-100"
+                />
+                <span className="mb-4 inline-flex transition-transform duration-300 ease-spring group-hover:-rotate-6 group-hover:scale-110">
+                  {category.icon}
+                </span>
+                <h3 className="mb-2 text-[16px] font-bold text-primary-700">
+                  {category.title}
+                </h3>
+                <p className="text-[13px] leading-relaxed">
+                  {category.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </LegalSection>
 
-              <div className="p-6 border border-border-default bg-surface-card rounded-lg">
-                <Activity className="w-6 h-6 text-link-500 mb-4" />
-                <h3 className="text-[16px] font-bold text-primary-700 mb-2">Agent Context & Preferences</h3>
-                <p className="text-[13px]">We use local storage to cache your preferred local language (e.g., Hindi, Telugu) and temporary conversational context, ensuring our GPT-based agents respond rapidly without excessive server round-trips.</p>
-              </div>
-            </div>
-
-            <section className="mt-12">
-              <h2 className="text-[20px] font-bold text-primary-700 mb-4">Managing Your Preferences</h2>
-              <p className="mb-4">
-                You can control cookie settings directly through your browser. However, please be aware that disabling <strong>Essential Cookies</strong> will prevent you from logging into the HELIOS dashboard, and clearing <strong>Agent Context</strong> will reset your active chat session with the AI companion.
-              </p>
-              <p>
-                By clicking "Accept" on our initial cookie banner, you consent to the aggregation of generalized, anonymized usage metrics which help our engineering team improve the UI/UX for Bharat's demographics.
-              </p>
-            </section>
-
-          </div>
-        </motion.div>
-      </section>
-    </Layout>
+        <LegalSection title="Managing your preferences">
+          <p className="mb-4">
+            You can control cookie settings directly through your browser.
+            However, please be aware that disabling{' '}
+            <strong>essential cookies</strong> will prevent you from logging in
+            to the HELIOS dashboard, and clearing{' '}
+            <strong>agent context</strong> will reset your active chat session
+            with the AI companion.
+          </p>
+          <p>
+            By choosing &ldquo;Accept&rdquo; on our cookie banner, you consent to
+            the aggregation of generalised, anonymised usage metrics, which help
+            our engineering team improve the experience for Bharat&rsquo;s
+            demographics. Choosing &ldquo;Decline&rdquo; keeps only the cookies
+            that are strictly necessary.
+          </p>
+        </LegalSection>
+      </LegalLayout>
+    </>
   );
 }

@@ -11,7 +11,13 @@
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scroll-behavior: smooth;
+    /* Kept out of the base rule so it can be disabled for reduced motion */
+    scroll-behavior: auto;
+  }
+
+  /* Offsets in-page anchor jumps by the fixed navbar height */
+  html {
+    scroll-padding-top: 5.5rem;
   }
 
   /* Ensures inputs don't zoom on iOS devices */
@@ -24,5 +30,99 @@
     /* We replaced the theme() function with the direct Hex color to bypass the v4 parser error */
     outline: 2px solid #F97316;
     outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Headings read better with balanced line breaks; body copy with pretty */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  p, li {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: #FED7AA;
+    color: #131921;
+  }
+
+  /* Subtle branded scrollbar on the desktop shell */
+  @media (pointer: fine) {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #C6CCD5 transparent;
+    }
+  }
+}
+
+@layer utilities {
+  /*
+   * Blurred colour field used behind hero sections. Sized and positioned by the
+   * consumer; this only supplies the gradient and the soft edge.
+   */
+  .aurora-blob {
+    border-radius: 9999px;
+    filter: blur(72px);
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  /* Masks a decorative layer so it fades out towards the edges */
+  .mask-fade-edges {
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+  }
+
+  .mask-fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+
+  /* Sweeping highlight for "live"/loading emphasis */
+  .text-shimmer {
+    background-image: linear-gradient(
+      100deg,
+      currentColor 20%,
+      #F97316 42%,
+      #FDBA74 52%,
+      currentColor 72%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Promotes an element to its own layer for smoother transform animation */
+  .gpu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+/*
+ * Motion is opt-in. Anyone who has asked their OS to reduce motion gets the
+ * finished state immediately instead of the transition, and the smooth-scroll
+ * behaviour is never enabled for them at all.
+ *
+ * Framer Motion animations are handled separately by <MotionConfig
+ * reducedMotion="user"> in _app.tsx — this block covers CSS animation only.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html,
+  body {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

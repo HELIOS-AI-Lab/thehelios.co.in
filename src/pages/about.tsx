@@ -1,267 +1,378 @@
-'use client';
-
 import React from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { 
-  Target, 
-  Eye, 
-  Cpu, 
-  BarChart3, 
-  ShieldCheck, 
+import {
+  Target,
+  Eye,
+  Cpu,
+  BarChart3,
+  ShieldCheck,
   ArrowRight,
   Handshake,
   GraduationCap,
-  Network
+  Network,
+  Check,
 } from 'lucide-react';
 
 import Layout from '@/components/layout/Layout';
+import Seo from '@/components/shared/Seo';
 import { HeroSection } from '@/components/ui/HeroSection';
-import { Card, CardBody } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Card, CardBody, SpotlightCard } from '@/components/ui/Card';
+import { ButtonLink } from '@/components/ui/Button';
+import SectionHeading from '@/components/ui/SectionHeading';
+import { Reveal, RevealText } from '@/components/ui/Reveal';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
+import {
+  fadeInLeft,
+  fadeInRight,
+  fadeInUp,
+  riseIn,
+  staggerContainer,
+  VIEWPORT_ONCE,
+} from '@/lib/motion';
+import { absoluteUrl } from '@/lib/site';
+import {
+  breadcrumbSchema,
+  buildJsonLd,
+  organizationSchema,
+  webPageSchema,
+} from '@/lib/structured-data';
 
-// Motion variants
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-40px" },
-  transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-};
+const DESCRIPTION =
+  'Discover the mission, vision and team behind HELIOS AI Labs — a research lab building explainable, self-evolving AI agents for finance, education and public systems.';
 
-const staggerContainer = {
-  initial: { opacity: 0 },
-  whileInView: { opacity: 1 },
-  viewport: { once: true },
-  transition: { staggerChildren: 0.1 }
-};
+const leadership = [
+  {
+    name: 'Srikanth Bommaraveni',
+    role: 'Founder & Lead AI Architect',
+    years: 9,
+    bio: [
+      'Srikanth brings 9+ years of experience in data science, machine learning, and intelligent systems. His work spans healthcare, telecom, and finance — integrating reinforcement learning, generative AI, and interpretable ML to build agents that adapt and act in dynamic, real-world environments.',
+      'At HELIOS, he leads the vision of creating modular, explainable, and self-evolving AI agents — designed to think, learn, and improve continuously across domains.',
+    ],
+  },
+  {
+    name: 'Srinivas Dharani',
+    role: 'Partner & AI-Driven Data Architect',
+    years: 8,
+    bio: [
+      'Srinivas brings 8+ years of expertise in data engineering, cloud architecture, and intelligent automation. His work spans large-scale data platforms, AWS ecosystems, and AI-powered solutions — transforming complex business challenges into scalable, production-ready systems.',
+      'At HELIOS AI Labs, he focuses on building next-generation data and AI infrastructures that enable organisations to turn data into intelligence, automation, and measurable business impact.',
+    ],
+  },
+];
+
+const teams = [
+  {
+    icon: <Cpu className="h-5 w-5" />,
+    title: 'AI & MLOps engineers',
+    description:
+      'Our engineering team brings 4+ years of expertise in full-stack DevOps, backend systems, and MLOps. They specialise in the secure, scalable deployment of machine learning pipelines, including real-time analytics platforms for high-frequency data environments.',
+  },
+  {
+    icon: <BarChart3 className="h-5 w-5" />,
+    title: 'Data science & analytics',
+    description:
+      'From anomaly detection to portfolio risk modelling, our data science unit combines deep mathematical modelling with real-time feedback systems and interpretable AI — ensuring all agent decisions stay aligned with evolving market and user behaviours.',
+  },
+  {
+    icon: <ShieldCheck className="h-5 w-5" />,
+    title: 'Quality assurance & testing',
+    description:
+      'At HELIOS, quality is embedded from day one. Our QA engineers rigorously test every system for stability, performance, and safety — across edge cases, live deployments, and high-load conditions — to ensure our AI agents remain reliable, transparent, and robust.',
+  },
+];
+
+const audiences = [
+  {
+    icon: <Handshake className="h-6 w-6" />,
+    title: 'Strategic investors',
+    description: 'Who value depth, research, and long-term vision over hype.',
+  },
+  {
+    icon: <GraduationCap className="h-6 w-6" />,
+    title: 'Researchers',
+    description:
+      'Passionate about ethical, interpretable, and reinforcement-driven AI.',
+  },
+  {
+    icon: <Network className="h-6 w-6" />,
+    title: 'Partners & collaborators',
+    description:
+      'Who want to shape the future of finance and intelligent decision-making.',
+  },
+];
+
+const visionPoints = [
+  'Learn and adapt continuously',
+  'Collaborate with humans, not override them',
+  'Simplify complex financial and operational systems',
+  'Act with transparency and explainability',
+];
+
+// The founder/partner profiles are surfaced to search engines as Person nodes
+// attached to the Organization, which is what powers knowledge-panel linkage.
+const peopleSchema = leadership.map((person) => ({
+  '@type': 'Person',
+  name: person.name,
+  jobTitle: person.role,
+  worksFor: { '@id': `${absoluteUrl('/')}#organization` },
+  description: person.bio[0],
+}));
+
+const jsonLd = buildJsonLd(
+  organizationSchema(),
+  ...peopleSchema,
+  webPageSchema({
+    path: '/about',
+    title: 'About Us',
+    description: DESCRIPTION,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ])
+);
 
 export default function AboutPage() {
   return (
     <Layout>
-      <Head>
-        <title>About Us | HELIOS AI Labs</title>
-        <meta name="description" content="Discover the mission, vision, and team behind HELIOS AI Labs." />
-      </Head>
+      <Seo
+        title="About Us"
+        description={DESCRIPTION}
+        path="/about"
+        jsonLd={jsonLd}
+      />
 
-      {/* Hero Section */}
-      <motion.div initial="initial" animate="whileInView" variants={staggerContainer}>
-        <HeroSection
-          theme="light"
-          // badge="Who We Are"
-          alignment="left"
-          title="Welcome to HELIOS AI Labs"
-subtitle="We are a future-facing lab — open to collaborators, researchers, and believers in the power of intelligence."        />
-      </motion.div>
+      {/* Hero */}
+      <HeroSection
+        theme="light"
+        alignment="left"
+        badge="Who we are"
+        title={<RevealText text="Welcome to HELIOS AI Labs" />}
+        subtitle="We are a future-facing lab — open to collaborators, researchers, and believers in the power of intelligence."
+      />
 
-      {/* Mission & Vision Section */}
-      <section className="py-20 px-6 max-w-[1280px] mx-auto border-b border-border-subtle">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-24">
-          
+      {/* Mission & vision */}
+      <section className="mx-auto max-w-[1280px] border-b border-border-subtle px-6 py-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:gap-24">
           {/* Mission */}
-          <motion.div variants={fadeInUp} initial="initial" whileInView="whileInView" viewport={{ once: true }}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded bg-accent-50 text-accent-700 flex items-center justify-center">
-                <Target className="w-5 h-5" />
-              </div>
-              <h2 className="text-[26px] font-bold text-primary-700">Our Mission</h2>
+          <Reveal variants={fadeInLeft}>
+            <div className="mb-6 flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded bg-accent-50 text-accent-700">
+                <Target className="h-5 w-5" />
+              </span>
+              <h2 className="text-[26px] font-bold text-primary-700">
+                Our mission
+              </h2>
             </div>
-            <div className="space-y-4 text-[15px] text-text-secondary leading-relaxed">
+            <div className="space-y-4 text-[15px] leading-relaxed text-text-secondary">
               <p>
-                At HELIOS AI Labs, our mission is to build the next generation of intelligent, explainable, and self-evolving AI agents — capable of solving complex, real-world challenges across finance, education, public systems, and beyond.
+                At HELIOS AI Labs, our mission is to build the next generation of
+                intelligent, explainable, and self-evolving AI agents — capable
+                of solving complex, real-world challenges across finance,
+                education, public systems, and beyond.
               </p>
               <p>
-                Rooted in deep reinforcement learning, generative AI, and modular architectures, we are designing systems that learn continuously, adapt responsibly, and empower human decision-making — not replace it.
+                Rooted in deep reinforcement learning, generative AI, and modular
+                architectures, we are designing systems that learn continuously,
+                adapt responsibly, and empower human decision-making — not
+                replace it.
               </p>
               <p className="font-medium text-text-primary">
-Starting with Bharat and scaling globally, HELIOS is committed to making AI not just powerful, but purposeful — a true companion in shaping the future of insight, action, and trust.              </p>
+                Starting with Bharat and scaling globally, HELIOS is committed to
+                making AI not just powerful, but purposeful — a true companion in
+                shaping the future of insight, action, and trust.
+              </p>
             </div>
-          </motion.div>
+          </Reveal>
 
           {/* Vision */}
-          <motion.div variants={fadeInUp} initial="initial" whileInView="whileInView" viewport={{ once: true }}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded bg-link-50 text-link-700 flex items-center justify-center">
-                <Eye className="w-5 h-5" />
-              </div>
-              <h2 className="text-[26px] font-bold text-primary-700">Our Vision</h2>
+          <Reveal variants={fadeInRight}>
+            <div className="mb-6 flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded bg-link-50 text-link-700">
+                <Eye className="h-5 w-5" />
+              </span>
+              <h2 className="text-[26px] font-bold text-primary-700">
+                Our vision
+              </h2>
             </div>
-            <div className="space-y-4 text-[15px] text-text-secondary leading-relaxed">
+            <div className="space-y-4 text-[15px] leading-relaxed text-text-secondary">
               <p>
-                To lead Bharat’s transformation into an AI-empowered economy by building transparent, self-evolving agents that support decision-makers — not replace them. We envision a world where intelligent agents:
+                To lead Bharat’s transformation into an AI-empowered economy by
+                building transparent, self-evolving agents that support
+                decision-makers — not replace them. We envision a world where
+                intelligent agents:
               </p>
-              <ul className="list-disc pl-5 space-y-2 text-text-primary font-medium mt-4">
-                <li>Learn and adapt continuously</li>
-                <li>Collaborate with humans, not override them</li>
-                <li>Simplify complex financial and operational systems</li>
-                <li>Act with transparency and explainability</li>
-              </ul>
+
+              <motion.ul
+                variants={staggerContainer(0.08)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={VIEWPORT_ONCE}
+                className="mt-4 space-y-2.5"
+              >
+                {visionPoints.map((point) => (
+                  <motion.li
+                    key={point}
+                    variants={fadeInUp}
+                    className="flex items-start gap-2.5 font-medium text-text-primary"
+                  >
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent-500" />
+                    {point}
+                  </motion.li>
+                ))}
+              </motion.ul>
+
               <p className="mt-4">
-                Whether it's optimizing portfolios, reducing risk exposure, or automating due diligence, HELIOS AI Labs is committed to human-centered AI that drives long-term value — not short-term hype.
+                Whether it’s optimising portfolios, reducing risk exposure, or
+                automating due diligence, HELIOS AI Labs is committed to
+                human-centred AI that drives long-term value — not short-term
+                hype.
               </p>
             </div>
-          </motion.div>
-
+          </Reveal>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-24 px-6 max-w-[1280px] mx-auto">
-        <motion.div variants={fadeInUp} initial="initial" whileInView="whileInView" className="mb-16">
-          <h2 className="text-[32px] font-bold tracking-tight mb-4 text-primary-700">Meet the Team</h2>
-          <p className="text-text-secondary text-[16px] max-w-[720px]">
-            We are a collective of engineers, researchers, and data scientists dedicated to building AI the right way.
-          </p>
-        </motion.div>
+      {/* Team */}
+      <section className="mx-auto max-w-[1280px] px-6 py-24">
+        <SectionHeading
+          eyebrow="The people"
+          title="Meet the team"
+          description="We are a collective of engineers, researchers, and data scientists dedicated to building AI the right way."
+          className="mb-16"
+        />
 
-        {/* Founder Card (Prominent) */}
-        <motion.div variants={fadeInUp} initial="initial" whileInView="whileInView" className="mb-12">
-          <Card variant="flat" className="md:flex items-stretch">
-            <div className="bg-neutral-100 md:w-[320px] shrink-0 p-8 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border-default">
-              <h3 className="text-[22px] font-bold text-primary-700 mb-1">Srikanth Bommaraveni</h3>
-              <p className="text-[13px] font-semibold uppercase tracking-wider text-accent-700 mb-4">Founder & Lead AI Architect</p>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-border-default text-[12px] font-medium w-fit">
-                9+ Years Experience
+        {leadership.map((person) => (
+          <Reveal key={person.name} variants={riseIn} className="mb-12">
+            <Card variant="flat" className="items-stretch md:flex">
+              <div className="relative flex shrink-0 flex-col justify-center overflow-hidden border-b border-border-default bg-neutral-100 p-8 md:w-[320px] md:border-b-0 md:border-r">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-grid-light bg-grid-sm opacity-60"
+                />
+                <div className="relative">
+                  <h3 className="mb-1 text-[22px] font-bold text-primary-700">
+                    {person.name}
+                  </h3>
+                  <p className="mb-4 text-[13px] font-semibold uppercase tracking-wider text-accent-700">
+                    {person.role}
+                  </p>
+                  <p className="inline-flex w-fit items-center gap-1.5 rounded-full border border-border-default bg-white px-2.5 py-1 text-[12px] font-medium">
+                    <AnimatedCounter value={person.years} suffix="+" />
+                    <span>years experience</span>
+                  </p>
+                </div>
               </div>
-            </div>
-            <CardBody className="p-8 md:p-10 flex flex-col justify-center">
-              <p className="text-[15px] text-text-secondary leading-relaxed mb-4">
-                Srikanth brings 9+ years of experience in data science, machine learning, and intelligent systems. His work spans healthcare, telecom, and finance — integrating reinforcement learning, generative AI, and interpretable ML to build agents that adapt and act in dynamic, real-world environments.
-              </p>
-              <p className="text-[15px] text-text-secondary leading-relaxed">
-                At HELIOS, he leads the vision of creating modular, explainable, and self-evolving AI agents — designed to think, learn, and improve continuously across domains.
-              </p>
-            </CardBody>
-          </Card>
-        </motion.div>
+              <CardBody className="flex flex-col justify-center gap-4 p-8 md:p-10">
+                {person.bio.map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 32)}
+                    className="text-[15px] leading-relaxed text-text-secondary"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </CardBody>
+            </Card>
+          </Reveal>
+        ))}
 
-        {/* Partner Card */}
-        <motion.div variants={fadeInUp} initial="initial" whileInView="whileInView" className="mb-12">
-          <Card variant="flat" className="md:flex items-stretch">
-            <div className="bg-neutral-100 md:w-[320px] shrink-0 p-8 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border-default">
-              <h3 className="text-[22px] font-bold text-primary-700 mb-1">Srinivas Dharani</h3>
-              <p className="text-[13px] font-semibold uppercase tracking-wider text-accent-700 mb-4">Partner & AI-Driven Data Architect</p>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-border-default text-[12px] font-medium w-fit">
-                8+ Years Experience
-              </div>
-            </div>
-            <CardBody className="p-8 md:p-10 flex flex-col justify-center">
-              <p className="text-[15px] text-text-secondary leading-relaxed mb-4">
-                Srinivas brings 8+ years of expertise in data engineering, cloud architecture, and intelligent automation. His work spans large-scale data platforms,AWS ecosystems, and AI-powered solutions — transforming complex business challenges into scalable, production-ready systems.
-              </p>
-              <p className="text-[15px] text-text-secondary leading-relaxed">
-                At HELIOS AI Labs, he focuses on building next-generation data and AI infrastructures that enable organizations to turn data into intelligence, automation, and measurable business impact.
-              </p>
-            </CardBody>
-          </Card>
-        </motion.div>
-
-        {/* Core Team Grid */}
-        <motion.div 
-          variants={staggerContainer} 
-          initial="initial" 
-          whileInView="whileInView" 
-          viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-6"
+        {/* Core team grid */}
+        <motion.div
+          variants={staggerContainer(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT_ONCE}
+          className="grid gap-6 md:grid-cols-3"
         >
-          {/* MLOps */}
-          <motion.div variants={fadeInUp}>
-            <Card variant="interactive" className="h-full">
-              <CardBody className="p-6">
-                <div className="w-10 h-10 rounded bg-neutral-100 flex items-center justify-center mb-5 text-text-primary">
-                  <Cpu className="w-5 h-5" />
-                </div>
-                <h4 className="text-[16px] font-bold mb-3">AI & MLOps Engineers</h4>
-                <p className="text-[14px] text-text-secondary leading-relaxed">
-                  Our engineering team brings 4+ years of expertise in full-stack DevOps, backend systems, and MLOps. They specialize in the secure, scalable deployment of machine learning pipelines, including real-time analytics platforms for high-frequency data environments.
+          {teams.map((team) => (
+            <motion.div key={team.title} variants={riseIn}>
+              <SpotlightCard className="h-full p-6" tilt={4}>
+                <span className="mb-5 flex h-10 w-10 items-center justify-center rounded bg-neutral-100 text-text-primary transition-all duration-300 ease-spring group-hover/spot:scale-110 group-hover/spot:bg-accent-500 group-hover/spot:text-white">
+                  {team.icon}
+                </span>
+                <h3 className="mb-3 text-[16px] font-bold">{team.title}</h3>
+                <p className="text-[14px] leading-relaxed text-text-secondary">
+                  {team.description}
                 </p>
-              </CardBody>
-            </Card>
-          </motion.div>
-
-          {/* Data Science */}
-          <motion.div variants={fadeInUp}>
-            <Card variant="interactive" className="h-full">
-              <CardBody className="p-6">
-                <div className="w-10 h-10 rounded bg-neutral-100 flex items-center justify-center mb-5 text-text-primary">
-                  <BarChart3 className="w-5 h-5" />
-                </div>
-                <h4 className="text-[16px] font-bold mb-3">Data Science & Analytics</h4>
-                <p className="text-[14px] text-text-secondary leading-relaxed">
-                  From anomaly detection to portfolio risk modeling, our data science unit combines deep mathematical modeling with real-time feedback systems and interpretable AI — ensuring all agent decisions stay aligned with evolving market and user behaviors.
-                </p>
-              </CardBody>
-            </Card>
-          </motion.div>
-
-          {/* QA */}
-          <motion.div variants={fadeInUp}>
-            <Card variant="interactive" className="h-full">
-              <CardBody className="p-6">
-                <div className="w-10 h-10 rounded bg-neutral-100 flex items-center justify-center mb-5 text-text-primary">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <h4 className="text-[16px] font-bold mb-3">Quality Assurance & Testing</h4>
-                <p className="text-[14px] text-text-secondary leading-relaxed">
-                  At HELIOS, quality is embedded from day one. Our QA engineers rigorously test every system for stability, performance, and safety — across edge cases, live deployments, and high-load conditions — to ensure our AI agents remain reliable, transparent, and robust.
-                </p>
-              </CardBody>
-            </Card>
-          </motion.div>
+              </SpotlightCard>
+            </motion.div>
+          ))}
         </motion.div>
       </section>
 
-      {/* Why Now, Why Us Section */}
-      <section className="py-24 bg-primary-700 text-white">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <motion.div variants={fadeInUp} initial="initial" whileInView="whileInView" className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-[32px] font-bold mb-6">Why Now, Why Us?</h2>
-            <p className="text-[18px] text-white/80 leading-relaxed mb-4">
-              HELIOS AI Labs is still early in its journey — but we’re moving with intention.
-            </p>
-            <p className="text-[16px] text-white/70 leading-relaxed">
-              Our prototypes are live, our research is in motion, and our vision aligns with the urgent need for intelligent, explainable systems across finance and beyond. We’re looking to connect with those who believe in building AI the right way.
-            </p>
-          </motion.div>
+      {/* Why now, why us */}
+      <section className="relative overflow-hidden bg-primary-700 py-24 text-white">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-grid-dark bg-grid mask-fade-edges"
+        />
 
-          <motion.div 
-            variants={staggerContainer} 
-            initial="initial" 
-            whileInView="whileInView"
-            className="grid md:grid-cols-3 gap-6 mb-16"
+        <div className="relative mx-auto max-w-[1280px] px-6">
+          <SectionHeading
+            eyebrow="Why now"
+            title="Why now, why us?"
+            description="HELIOS AI Labs is still early in its journey — but we’re moving with intention."
+            align="center"
+            inverse
+            className="mb-6"
+          />
+
+          <Reveal delay={0.1}>
+            <p className="mx-auto mb-16 max-w-3xl text-center text-[16px] leading-relaxed text-white/70">
+              Our prototypes are live, our research is in motion, and our vision
+              aligns with the urgent need for intelligent, explainable systems
+              across finance and beyond. We’re looking to connect with those who
+              believe in building AI the right way.
+            </p>
+          </Reveal>
+
+          <motion.div
+            variants={staggerContainer(0.1)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT_ONCE}
+            className="mb-16 grid gap-6 md:grid-cols-3"
           >
-            {/* Investors */}
-            <motion.div variants={fadeInUp} className="bg-white/5 border border-white/10 rounded-lg p-8">
-              <Handshake className="w-6 h-6 text-accent-500 mb-4" />
-              <h4 className="text-[16px] font-bold mb-2">Strategic Investors</h4>
-              <p className="text-[14px] text-white/70">Who value depth, research, and long-term vision over hype.</p>
-            </motion.div>
-
-            {/* Researchers */}
-            <motion.div variants={fadeInUp} className="bg-white/5 border border-white/10 rounded-lg p-8">
-              <GraduationCap className="w-6 h-6 text-accent-500 mb-4" />
-              <h4 className="text-[16px] font-bold mb-2">Researchers</h4>
-              <p className="text-[14px] text-white/70">Passionate about ethical, interpretable, and reinforcement-driven AI.</p>
-            </motion.div>
-
-            {/* Partners */}
-            <motion.div variants={fadeInUp} className="bg-white/5 border border-white/10 rounded-lg p-8">
-              <Network className="w-6 h-6 text-accent-500 mb-4" />
-              <h4 className="text-[16px] font-bold mb-2">Partners & Collaborators</h4>
-              <p className="text-[14px] text-white/70">Who want to shape the future of finance and intelligent decision-making.</p>
-            </motion.div>
+            {audiences.map((audience) => (
+              <motion.div
+                key={audience.title}
+                variants={riseIn}
+                whileHover={{ y: -6 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 26 }}
+                className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-8 transition-colors duration-300 hover:border-accent-500/40 hover:bg-white/10"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-accent-500 to-transparent transition-transform duration-500 ease-standard group-hover:scale-x-100"
+                />
+                <span className="mb-4 inline-flex text-accent-500 transition-transform duration-300 ease-spring group-hover:-rotate-6 group-hover:scale-110">
+                  {audience.icon}
+                </span>
+                <h3 className="mb-2 text-[16px] font-bold">{audience.title}</h3>
+                <p className="text-[14px] text-white/70">
+                  {audience.description}
+                </p>
+              </motion.div>
+            ))}
           </motion.div>
 
-          <motion.div variants={fadeInUp} initial="initial" whileInView="whileInView" className="text-center">
+          <Reveal className="text-center">
             <div className="inline-flex flex-col items-center">
-              <p className="text-[18px] font-semibold mb-6">If this resonates with you — we’d love to talk.</p>
-              <Link href="/contact">
-                <Button variant="primary" size="lg" trailingIcon={<ArrowRight className="w-4 h-4" />}>
-                  Get in Touch
-                </Button>
-              </Link>
+              <p className="mb-6 text-[18px] font-semibold">
+                If this resonates with you — we’d love to talk.
+              </p>
+              <ButtonLink
+                href="/contact"
+                variant="primary"
+                size="lg"
+                trailingIcon={<ArrowRight className="h-4 w-4" />}
+              >
+                Get in touch
+              </ButtonLink>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
     </Layout>

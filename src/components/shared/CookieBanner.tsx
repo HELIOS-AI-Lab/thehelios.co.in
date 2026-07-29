@@ -1,56 +1,113 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useSyncExternalStore } from 'react';
+import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Cookie } from 'lucide-react';
+import { EASE_SOFT } from '@/lib/motion';
+
+const STORAGE_KEY = 'helios_cookie_consent';
+
+/** Sentinel returned on the server, where localStorage does not exist. */
+const UNKNOWN = 'unknown';
+
+function subscribe(onStoreChange: () => void) {
+  // Keeps the banner in sync if the choice is made in another tab
+  window.addEventListener('storage', onStoreChange);
+  return () => window.removeEventListener('storage', onStoreChange);
+}
+
+function getSnapshot(): string {
+  try {
+    return localStorage.getItem(STORAGE_KEY) ?? '';
+  } catch {
+    // Storage can be unavailable (private mode, blocked cookies). Treating it
+    // as "already answered" is better than crashing the page over a banner.
+    return UNKNOWN;
+  }
+}
+
+function getServerSnapshot(): string {
+  return UNKNOWN;
+}
 
 export default function CookieBanner() {
-  const [isVisible, setIsVisible] = useState(false);
+  /*
+   * useSyncExternalStore is the sanctioned way to read a browser-only value
+   * during render: hydration uses the server snapshot, so the first client
+   * render matches the HTML exactly, and React re-reads the real value
+   * immediately afterwards. Doing this with useEffect + setState would trigger
+   * a cascading render.
+   */
+  const stored = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [dismissed, setDismissed] = useState(false);
 
-  useEffect(() => {
-    // Check if the user has already accepted cookies
-    const hasAccepted = localStorage.getItem('helios_cookie_consent');
-    if (!hasAccepted) {
-      setIsVisible(true);
+  const isVisible = stored === '' && !dismissed;
+
+  const record = useCallback((choice: 'accepted' | 'declined') => {
+    try {
+      localStorage.setItem(STORAGE_KEY, choice);
+    } catch {
+      /* see getSnapshot */
     }
+    setDismissed(true);
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem('helios_cookie_consent', 'true');
-    setIsVisible(false);
-  };
-
-  if (!isVisible) return null;
-
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:w-[420px] z-50 animate-in fade-in slide-in-from-bottom-4 duration-300">
-      <div className="bg-surface-card border border-border-default shadow-8 rounded-sm p-5 flex flex-col gap-4">
-        
-        <div className="flex flex-col gap-1.5">
-          <h4 className="text-[14px] font-semibold text-text-primary">
-            This website uses cookies
-          </h4>
-          <p className="text-[13px] text-text-secondary leading-relaxed">
-            We use cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data.
-          </p>
-        </div>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          role="dialog"
+          aria-live="polite"
+          aria-label="Cookie preferences"
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 24, scale: 0.97 }}
+          transition={{ duration: 0.4, ease: EASE_SOFT }}
+          className="fixed bottom-4 left-4 right-4 z-50 md:left-6 md:right-auto md:w-[420px]"
+        >
+          <div className="flex flex-col gap-4 rounded-xl border border-border-default bg-surface-card/95 p-5 shadow-lift backdrop-blur-xl">
+            <div className="flex gap-3">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-50 text-accent-600">
+                <Cookie className="h-4 w-4" />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <h2 className="text-[14px] font-semibold text-text-primary">
+                  This website uses cookies
+                </h2>
+                <p className="text-[13px] leading-relaxed text-text-secondary">
+                  We use cookies to analyse website traffic and optimise your
+                  experience. Accepting aggregates your data with all other user
+                  data. Read our{' '}
+                  <Link
+                    href="/cookies"
+                    className="font-medium text-link-600 underline underline-offset-2 hover:text-link-700"
+                  >
+                    Cookie Policy
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
 
-        <div className="flex justify-end gap-2 pt-2">
-          {/* We provide a secondary "Decline" button for compliance, though optional */}
-          <button
-            onClick={() => setIsVisible(false)}
-            className="inline-flex items-center justify-center h-8 px-3 text-[13px] font-semibold bg-white text-text-primary border border-border-default rounded-lg hover:bg-neutral-100 hover:border-border-strong transition-colors duration-150 ease-standard"
-          >
-            Decline
-          </button>
-          
-          <button
-            onClick={handleAccept}
-            className="inline-flex items-center justify-center h-8 px-4 text-[13px] font-semibold bg-accent-500 text-primary-700 rounded-lg hover:bg-accent-400 active:bg-accent-600 transition-colors duration-150 ease-standard"
-          >
-            Accept
-          </button>
-        </div>
+            <div className="flex justify-end gap-2 pt-1">
+              <button
+                onClick={() => record('declined')}
+                className="inline-flex h-8 items-center justify-center rounded-lg border border-border-default bg-white px-3 text-[13px] font-semibold text-text-primary transition-all duration-150 ease-standard hover:border-border-strong hover:bg-neutral-100 active:scale-[0.97]"
+              >
+                Decline
+              </button>
 
-      </div>
-    </div>
+              <button
+                onClick={() => record('accepted')}
+                className="inline-flex h-8 items-center justify-center rounded-lg bg-accent-500 px-4 text-[13px] font-semibold text-primary-700 transition-all duration-150 ease-standard hover:bg-accent-400 hover:shadow-accent active:scale-[0.97]"
+              >
+                Accept
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

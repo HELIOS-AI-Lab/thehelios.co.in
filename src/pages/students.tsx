@@ -1,220 +1,327 @@
-'use client';
-
 import React from 'react';
-import Head from 'next/head';
-import { motion, Variants } from 'framer-motion';
-import { 
-  GraduationCap, 
-  Code2, 
-  Microscope, 
-  Cpu, 
-  Lightbulb, 
+import { motion } from 'framer-motion';
+import {
+  GraduationCap,
+  Code2,
+  Microscope,
+  Cpu,
+  Lightbulb,
   FileSearch,
-  ArrowDown
+  ArrowDown,
+  Check,
 } from 'lucide-react';
 
 import Layout from '@/components/layout/Layout';
+import Seo from '@/components/shared/Seo';
 import { HeroSection } from '@/components/ui/HeroSection';
 import { FeatureGrid, FeatureItem } from '@/components/ui/FeatureGrid';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Card, SpotlightCard } from '@/components/ui/Card';
+import { ButtonLink } from '@/components/ui/Button';
+import SectionHeading from '@/components/ui/SectionHeading';
+import { Reveal, RevealText } from '@/components/ui/Reveal';
 import ContactForm from '@/components/shared/ContactForm';
+import {
+  fadeInUp,
+  riseIn,
+  staggerContainer,
+  VIEWPORT_ONCE,
+} from '@/lib/motion';
+import {
+  breadcrumbSchema,
+  buildJsonLd,
+  jobPostingCollectionSchema,
+  organizationSchema,
+  webPageSchema,
+} from '@/lib/structured-data';
 
-// Upgraded to Industry Standard Framer Motion Variants
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
+const DESCRIPTION =
+  'Join the HELIOS Student Fellowship. Work on reinforcement learning, MLOps and FinTech AI alongside our lab teams, with mentorship, publication opportunities and a route to a full-time role.';
 
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { 
-      duration: 0.6, 
-      // Strictly type the cubic-bezier array to resolve the TS error
-      ease: [0.22, 1, 0.36, 1] as [number, number, number, number] 
-    } 
-  }
-};
+const tracks = [
+  {
+    icon: <Cpu className="h-5 w-5" />,
+    title: 'MLOps & infrastructure',
+    description:
+      'Build scalable GPU scheduling systems, serverless LLM deployment pipelines, and automated model monitoring tools on AWS and Azure.',
+  },
+  {
+    icon: <Microscope className="h-5 w-5" />,
+    title: 'Scientific computing',
+    description:
+      'Contribute to our DockX platform, using RDKit and AutoDock Vina for molecular docking and ADMET profiling research.',
+  },
+  {
+    icon: <Code2 className="h-5 w-5" />,
+    title: 'Explainable FinTech',
+    description:
+      'Develop interpretable reinforcement learning agents for Bharat’s wealth engine, focusing on local language reasoning.',
+  },
+];
+
+const benefits = [
+  {
+    icon: <Lightbulb className="h-5 w-5" />,
+    title: 'Direct mentorship',
+    description:
+      'Weekly one-to-one sessions with Srikanth and our lead engineers to guide your technical growth.',
+  },
+  {
+    icon: <FileSearch className="h-5 w-5" />,
+    title: 'Paper publication',
+    description:
+      'Opportunities to co-author research papers and contribute to open-source scientific software.',
+  },
+  {
+    icon: <GraduationCap className="h-5 w-5" />,
+    title: 'Career pathway',
+    description:
+      'Top-performing fellows receive pre-placement offers (PPOs) for full-time roles at HELIOS AI Labs.',
+  },
+];
+
+const phases = [
+  {
+    label: 'Weeks 1–2',
+    title: 'Onboarding',
+    description:
+      'Environment setup, codebase walkthrough, and a scoped first issue on a live service.',
+  },
+  {
+    label: 'Weeks 3–8',
+    title: 'Deep work',
+    description:
+      'You own a track deliverable end to end, reviewed weekly against production standards.',
+  },
+  {
+    label: 'Weeks 9–12',
+    title: 'Ship & write',
+    description:
+      'Deploy your work, then turn the findings into an internal report or a paper submission.',
+  },
+];
+
+const requirements = [
+  'Currently enrolled in B.Tech / M.Tech (CSE / IT / EEE)',
+  'Proficiency in Python, React, or MLOps',
+  'Strong foundation in data structures',
+];
+
+const jsonLd = buildJsonLd(
+  organizationSchema(),
+  jobPostingCollectionSchema(),
+  webPageSchema({
+    path: '/students',
+    title: 'Student Fellowship',
+    description: DESCRIPTION,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Student Fellowship', path: '/students' },
+  ])
+);
 
 export default function StudentsPage() {
-  const scrollToApply = () => {
-    document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <Layout>
-      <Head>
-        <title>Student Fellowship | HELIOS AI Labs</title>
-        <meta name="description" content="Join the HELIOS Student Fellowship. Work on Reinforcement Learning, MLOps, and FinTech AI." />
-      </Head>
+      <Seo
+        title="Student Fellowship"
+        description={DESCRIPTION}
+        path="/students"
+        jsonLd={jsonLd}
+      />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <HeroSection
         theme="inverse"
         badge="Academic Collaboration"
-        title="Building the Next Generation of AI Researchers"
-        subtitle="The HELIOS Student Fellowship is an elite program for undergraduate and graduate students to work on frontier AI problems in Finance, Healthcare, and Deep Tech."
+        title={<RevealText text="Building the next generation of AI researchers" />}
+        subtitle="The HELIOS Student Fellowship is an elite programme for undergraduate and graduate students to work on frontier AI problems in finance, healthcare, and deep tech."
         primaryAction={
-          <Button variant="primary" size="lg" onClick={scrollToApply}>
+          <ButtonLink href="#apply" variant="primary" size="lg">
             Apply for Summer 2026
-          </Button>
+          </ButtonLink>
         }
         secondaryAction={
-          <Button variant="secondary" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20" leadingIcon={<ArrowDown className="w-4 h-4" />} onClick={scrollToApply}>
-  Explore Curriculum
-</Button>
+          <ButtonLink
+            href="#tracks"
+            variant="secondary"
+            size="lg"
+            className="border-white/20 bg-white/10 text-white hover:border-white/30 hover:bg-white/20"
+            leadingIcon={<ArrowDown className="h-4 w-4" />}
+          >
+            See research tracks
+          </ButtonLink>
         }
       />
 
-      {/* Program Tracks */}
-      <section className="py-24 px-6 max-w-[1280px] mx-auto">
-        <motion.div 
-          initial="hidden" 
-          whileInView="visible" 
-          viewport={{ once: true, margin: "-40px" }}
-          variants={fadeInUp} 
+      {/* Research tracks */}
+      <section id="tracks" className="mx-auto max-w-[1280px] px-6 py-24">
+        <SectionHeading
+          eyebrow="Programme"
+          title="Research tracks"
+          description="Fellows are embedded directly into our lab teams, working on production-grade AI infrastructure and research papers."
           className="mb-16"
-        >
-          <h2 className="text-[32px] font-bold text-primary-700 mb-4">Research Tracks</h2>
-          <p className="text-text-secondary text-[16px] max-w-2xl">
-            Fellows are embedded directly into our lab teams, working on production-grade AI infrastructure and research papers.
-          </p>
-        </motion.div>
+        />
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <FeatureGrid columns={3}>
-            <motion.div variants={fadeInUp}>
-              <FeatureItem 
-                icon={<Cpu className="w-5 h-5" />}
-                title="MLOps & Infrastructure"
-                description="Build scalable GPU scheduling systems, serverless LLM deployment pipelines, and automated model monitoring tools on AWS and Azure."
-              />
-            </motion.div>
-            <motion.div variants={fadeInUp}>
-              <FeatureItem 
-                icon={<Microscope className="w-5 h-5" />}
-                title="Scientific Computing"
-                description="Contribute to our DockX platform, utilizing RDKit and AutoDock Vina for molecular docking and ADMET profiling research."
-              />
-            </motion.div>
-            <motion.div variants={fadeInUp}>
-              <FeatureItem 
-                icon={<Code2 className="w-5 h-5" />}
-                title="Explainable FinTech"
-                description="Develop interpretable reinforcement learning agents for Bharat’s wealth engine, focusing on local language reasoning."
-              />
-            </motion.div>
-          </FeatureGrid>
-        </motion.div>
+        <FeatureGrid columns={3}>
+          {tracks.map((track, i) => (
+            <FeatureItem key={track.title} index={i + 1} {...track} />
+          ))}
+        </FeatureGrid>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 bg-neutral-50 border-y border-border-subtle overflow-hidden">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <motion.div 
+      {/* Benefits */}
+      <section className="overflow-hidden border-y border-border-subtle bg-neutral-50 py-20">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <motion.div
+            variants={staggerContainer(0.12)}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid md:grid-cols-2 gap-12 items-center"
+            viewport={VIEWPORT_ONCE}
+            className="grid items-center gap-12 md:grid-cols-2"
           >
             <div className="space-y-8">
-              <motion.h3 variants={fadeInUp} className="text-[28px] font-bold text-primary-700 mb-2">
-                Why Fellow with HELIOS?
-              </motion.h3>
-              
-              <motion.div variants={fadeInUp} className="flex gap-4">
-                <div className="shrink-0 w-12 h-12 rounded bg-accent-500/10 border border-accent-500/20 flex items-center justify-center text-accent-700">
-                  <Lightbulb className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[16px] mb-1">Direct Mentorship</h4>
-                  <p className="text-[14px] text-text-secondary leading-relaxed">Weekly 1-on-1 sessions with Srikanth and our lead engineers to guide your technical growth.</p>
-                </div>
-              </motion.div>
+              <motion.h2
+                variants={fadeInUp}
+                className="mb-2 text-[28px] font-bold text-primary-700"
+              >
+                Why fellow with HELIOS?
+              </motion.h2>
 
-              <motion.div variants={fadeInUp} className="flex gap-4">
-                <div className="shrink-0 w-12 h-12 rounded bg-accent-500/10 border border-accent-500/20 flex items-center justify-center text-accent-700">
-                  <FileSearch className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[16px] mb-1">Paper Publication</h4>
-                  <p className="text-[14px] text-text-secondary leading-relaxed">Opportunities to co-author research papers and contribute to open-source scientific software.</p>
-                </div>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} className="flex gap-4">
-                <div className="shrink-0 w-12 h-12 rounded bg-accent-500/10 border border-accent-500/20 flex items-center justify-center text-accent-700">
-                  <GraduationCap className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[16px] mb-1">Career Pathway</h4>
-                  <p className="text-[14px] text-text-secondary leading-relaxed">Top-performing fellows receive pre-placement offers (PPOs) for full-time roles at HELIOS AI Labs.</p>
-                </div>
-              </motion.div>
+              {benefits.map((benefit) => (
+                <motion.div
+                  key={benefit.title}
+                  variants={fadeInUp}
+                  className="group flex gap-4"
+                >
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded border border-accent-500/20 bg-accent-500/10 text-accent-700 transition-all duration-300 ease-spring group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-accent-500 group-hover:text-white">
+                    {benefit.icon}
+                  </span>
+                  <div>
+                    <h3 className="mb-1 text-[16px] font-bold">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-[14px] leading-relaxed text-text-secondary">
+                      {benefit.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
-            <motion.div variants={fadeInUp} className="relative mt-8 md:mt-0">
-              <Card variant="flat" className="p-8 bg-white border-2 border-accent-500/20 shadow-8 relative z-10">
-                <blockquote className="text-[18px] italic text-primary-700 mb-8 leading-relaxed">
-                  "The fellowship isn't about fetching coffee. It's about solving the port scanning abuse alerts on EC2, optimizing RDKit kernels, and building the future of Bharat's AI."
+            <motion.div variants={riseIn} className="relative mt-8 md:mt-0">
+              <SpotlightCard
+                tilt={5}
+                className="relative z-10 border-2 border-accent-500/20 bg-white p-8 shadow-8"
+              >
+                <blockquote className="mb-8 text-[18px] italic leading-relaxed text-primary-700">
+                  <p>
+                    “The fellowship isn’t about fetching coffee. It’s about
+                    solving the port-scanning abuse alerts on EC2, optimising
+                    RDKit kernels, and building the future of Bharat’s AI.”
+                  </p>
                 </blockquote>
-                <div className="flex items-center gap-4 pt-6 border-t border-border-subtle">
-                  <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold font-mono">FA</div>
+                <footer className="flex items-center gap-4 border-t border-border-subtle pt-6">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 font-mono font-bold text-primary-700">
+                    FA
+                  </span>
                   <div>
-                    <p className="text-[14px] font-bold text-primary-700">Fellowship Alumni</p>
-                    <p className="text-[12px] text-text-tertiary uppercase tracking-wider font-semibold">Class of 2025</p>
+                    <p className="text-[14px] font-bold text-primary-700">
+                      Fellowship alumnus
+                    </p>
+                    <p className="text-[12px] font-semibold uppercase tracking-wider text-text-tertiary">
+                      Class of 2025
+                    </p>
                   </div>
-                </div>
-              </Card>
+                </footer>
+              </SpotlightCard>
+
               {/* Decorative technical grid element */}
-              <div className="absolute -bottom-6 -right-6 z-0 w-full h-full border border-dashed border-border-strong bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-40 rounded" />
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-6 -right-6 z-0 h-full w-full rounded border border-dashed border-border-strong bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] opacity-40 [background-size:16px_16px]"
+              />
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Application Form Section */}
-      <section id="apply" className="py-24 px-6 max-w-[1024px] mx-auto">
-        <motion.div 
+      {/* Programme shape */}
+      <section className="mx-auto max-w-[1280px] px-6 py-24">
+        <SectionHeading
+          eyebrow="Twelve weeks"
+          title="How the fellowship runs"
+          description="A fixed shape, so you always know what the next milestone is and what you will have to show at the end of it."
+          className="mb-16"
+        />
+
+        <motion.ol
+          variants={staggerContainer(0.14)}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="grid md:grid-cols-3 gap-12"
+          viewport={VIEWPORT_ONCE}
+          className="relative grid gap-8 md:grid-cols-3"
         >
-          <div className="md:col-span-1">
-            <h2 className="text-[28px] font-bold text-primary-700 mb-4">Apply for the Fellowship</h2>
-            <p className="text-text-secondary text-[14px] leading-relaxed mb-6">
-              We accept applications on a rolling basis. Please ensure your GitHub profile or research portfolio is up to date.
+          {/* Connecting rule behind the markers on wide screens */}
+          <span
+            aria-hidden="true"
+            className="absolute left-0 right-0 top-5 hidden h-px bg-gradient-to-r from-accent-500/50 via-border-default to-transparent md:block"
+          />
+
+          {phases.map((phase, i) => (
+            <motion.li key={phase.title} variants={fadeInUp} className="relative">
+              <span className="relative z-10 mb-5 flex h-10 w-10 items-center justify-center rounded-full border border-accent-500/30 bg-surface-page font-mono text-[13px] font-bold text-accent-600">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <p className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-text-tertiary">
+                {phase.label}
+              </p>
+              <h3 className="mb-2 text-[18px] font-bold text-primary-700">
+                {phase.title}
+              </h3>
+              <p className="text-[14px] leading-relaxed text-text-secondary">
+                {phase.description}
+              </p>
+            </motion.li>
+          ))}
+        </motion.ol>
+      </section>
+
+      {/* Application */}
+      <section
+        id="apply"
+        className="mx-auto max-w-[1024px] scroll-mt-24 px-6 pb-24"
+      >
+        <div className="grid gap-12 md:grid-cols-3">
+          <Reveal className="md:col-span-1">
+            <h2 className="mb-4 text-[28px] font-bold text-primary-700">
+              Apply for the fellowship
+            </h2>
+            <p className="mb-6 text-[14px] leading-relaxed text-text-secondary">
+              We accept applications on a rolling basis. Please ensure your GitHub
+              profile or research portfolio is up to date.
             </p>
-            <div className="p-5 rounded-lg bg-primary-50 border border-primary-100">
-              <p className="text-[12px] font-bold text-primary-700 uppercase tracking-wider mb-3">Requirements</p>
-              <ul className="text-[13px] text-primary-800 space-y-2.5 list-disc pl-4 font-medium">
-                <li>Currently enrolled in B.Tech / M.Tech (CSE / IT / EEE)</li>
-                <li>Proficiency in Python, React, or MLOps</li>
-                <li>Strong foundation in Data Structures</li>
+            <div className="rounded-lg border border-primary-100 bg-primary-50 p-5">
+              <h3 className="mb-3 text-[12px] font-bold uppercase tracking-wider text-primary-700">
+                Requirements
+              </h3>
+              <ul className="space-y-2.5 text-[13px] font-medium text-primary-800">
+                {requirements.map((requirement) => (
+                  <li key={requirement} className="flex items-start gap-2">
+                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent-600" />
+                    {requirement}
+                  </li>
+                ))}
               </ul>
             </div>
-          </div>
-          
-          <div className="md:col-span-2">
-            <Card variant="flat" className="p-8 shadow-8 bg-white">
+          </Reveal>
+
+          <Reveal variants={riseIn} delay={0.1} className="md:col-span-2">
+            <Card variant="flat" className="bg-white p-8 shadow-8">
               <ContactForm variant="student" />
             </Card>
-          </div>
-        </motion.div>
+          </Reveal>
+        </div>
       </section>
     </Layout>
   );

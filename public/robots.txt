@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Build output and Next.js internals carry no indexable content
+Disallow: /_next/static/chunks/
+Disallow: /404
+Disallow: /500
+
+Sitemap: https://thehelios.co.in/sitemap.xml
+Host: https://thehelios.co.in

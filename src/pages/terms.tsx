@@ -1,76 +1,131 @@
-'use client';
-
 import React from 'react';
-import Head from 'next/head';
-import { motion } from 'framer-motion';
-import { Scale, AlertTriangle, FileText } from 'lucide-react';
-import Layout from '@/components/layout/Layout';
+import { Scale, AlertTriangle } from 'lucide-react';
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-};
+import Seo from '@/components/shared/Seo';
+import LegalLayout, { LegalSection } from '@/components/shared/LegalLayout';
+import { siteConfig } from '@/lib/site';
+import {
+  breadcrumbSchema,
+  buildJsonLd,
+  organizationSchema,
+  webPageSchema,
+} from '@/lib/structured-data';
+
+const DESCRIPTION =
+  'Terms of service and financial disclaimers for HELIOS AI Labs, including acceptable use, intellectual property and limitation of liability.';
+
+const jsonLd = buildJsonLd(
+  organizationSchema(),
+  webPageSchema({
+    path: '/terms',
+    title: 'Terms of Service',
+    description: DESCRIPTION,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Terms of Service', path: '/terms' },
+  ])
+);
 
 export default function TermsPage() {
   return (
-    <Layout>
-      <Head>
-        <title>Terms of Service | HELIOS AI Labs</title>
-        <meta name="description" content="Terms of Service and Financial Disclaimers for HELIOS AI Labs." />
-      </Head>
-      
-      <section className="py-24 px-6 max-w-[840px] mx-auto">
-        <motion.div initial="initial" animate="animate" variants={fadeInUp}>
-          
-          <div className="mb-16 border-b border-border-default pb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary-50 border border-primary-100 text-[12px] font-bold uppercase tracking-widest text-primary-700 mb-6">
-              <Scale className="w-4 h-4" /> Legal Agreement
-            </div>
-            <h1 className="text-[36px] md:text-[48px] font-bold text-primary-700 mb-4 tracking-tight">Terms of Service</h1>
-            <p className="text-text-secondary text-[15px] font-mono">Effective Date: April 2026 &nbsp;·&nbsp; Helios AI Labs Pvt Ltd</p>
-          </div>
+    <>
+      <Seo
+        title="Terms of Service"
+        description={DESCRIPTION}
+        path="/terms"
+        type="article"
+        jsonLd={jsonLd}
+      />
 
-          <div className="space-y-12 text-[15px] text-text-secondary leading-relaxed">
-            
-            <section className="p-6 bg-warning-500/10 border border-warning-500/20 rounded-lg">
-              <h2 className="text-[18px] font-bold text-primary-700 mb-3 flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-warning-500" />
-                Financial Disclaimer
-              </h2>
-              <p className="text-[14px] text-primary-800">
-                HELIOS AI Labs provides AI-powered analytical tools, reinforcement learning projections, and behavioral nudges. <strong>We are not a SEBI-registered financial advisor.</strong> All investment tracking, SIP modeling, and risk assessments are for informational and educational purposes. You assume full responsibility for your financial decisions and wealth creation strategies.
-              </p>
-            </section>
+      <LegalLayout
+        eyebrow="Legal Agreement"
+        icon={<Scale className="h-4 w-4" />}
+        title="Terms of Service"
+        effectiveDate="1 April 2026"
+        effectiveDateISO="2026-04-01"
+      >
+        <LegalSection
+          title="Financial disclaimer"
+          icon={<AlertTriangle className="h-5 w-5 text-warning-500" />}
+          className="rounded-lg border border-warning-500/20 bg-warning-500/10 p-6"
+        >
+          <p className="text-[14px] text-primary-800">
+            HELIOS AI Labs provides AI-powered analytical tools, reinforcement
+            learning projections, and behavioural nudges.{' '}
+            <strong>We are not a SEBI-registered financial advisor.</strong> All
+            investment tracking, SIP modelling, and risk assessments are for
+            informational and educational purposes. You assume full
+            responsibility for your financial decisions and wealth creation
+            strategies.
+          </p>
+        </LegalSection>
 
-            <section>
-              <h2 className="text-[20px] font-bold text-primary-700 mb-4">1. Agreement & Platform Access</h2>
-              <p>By accessing the HELIOS AI Wealth Engine, you agree to be bound by these Terms. The platform is operated by Helios AI Labs Pvt Ltd, registered in Bejjanki, Telangana. You agree to use the platform solely for its intended purpose: intelligent, human-centric financial tracking and education.</p>
-            </section>
+        <LegalSection title="1. Agreement and platform access">
+          <p>
+            By accessing the HELIOS AI Wealth Engine, you agree to be bound by
+            these Terms. The platform is operated by {siteConfig.legalName},
+            registered in {siteConfig.address.locality},{' '}
+            {siteConfig.address.region}. You agree to use the platform solely for
+            its intended purpose: intelligent, human-centric financial tracking
+            and education.
+          </p>
+        </LegalSection>
 
-            <section>
-              <h2 className="text-[20px] font-bold text-primary-700 mb-4">2. Acceptable Use & System Integrity</h2>
-              <p className="mb-4">You are strictly prohibited from:</p>
-              <ul className="list-disc pl-5 space-y-2 text-[14px]">
-                <li>Reverse-engineering our local language LLMs or Reinforcement Learning architectures.</li>
-                <li>Conducting unauthorized port scanning or penetration testing against our AWS/Azure instances.</li>
-                <li>Attempting to manipulate the vector stores or prompt-inject the explainable AI agents.</li>
-              </ul>
-            </section>
+        <LegalSection title="2. Acceptable use and system integrity">
+          <p className="mb-4">You are strictly prohibited from:</p>
+          <ul className="list-disc space-y-2 pl-5 text-[14px]">
+            <li>
+              Reverse-engineering our local language LLMs or reinforcement
+              learning architectures.
+            </li>
+            <li>
+              Conducting unauthorised port scanning or penetration testing
+              against our AWS or Azure instances.
+            </li>
+            <li>
+              Attempting to manipulate the vector stores or prompt-inject the
+              explainable AI agents.
+            </li>
+          </ul>
+        </LegalSection>
 
-            <section>
-              <h2 className="text-[20px] font-bold text-primary-700 mb-4">3. Intellectual Property</h2>
-              <p>All software, architectures, visual designs, and algorithmic models—including but not limited to the HELIOS Buddy platform and DockX integrations—are the exclusive intellectual property of Helios AI Labs Pvt Ltd. You are granted a limited, non-exclusive license to use the interface for personal wealth management.</p>
-            </section>
+        <LegalSection title="3. Intellectual property">
+          <p>
+            All software, architectures, visual designs, and algorithmic models —
+            including but not limited to the HELIOS Buddy platform and DockX
+            integrations — are the exclusive intellectual property of{' '}
+            {siteConfig.legalName}. You are granted a limited, non-exclusive
+            licence to use the interface for personal wealth management.
+          </p>
+        </LegalSection>
 
-            <section>
-              <h2 className="text-[20px] font-bold text-primary-700 mb-4">4. Limitation of Liability</h2>
-              <p>Helios AI Labs Pvt Ltd shall not be liable for any direct, indirect, incidental, or consequential damages resulting from market volatility, system downtime, AI hallucination, or misinterpretation of the explainable UX. The system utilizes hardcoded safety rails, but financial markets carry inherent risk.</p>
-            </section>
+        <LegalSection title="4. Limitation of liability">
+          <p>
+            {siteConfig.legalName} shall not be liable for any direct, indirect,
+            incidental, or consequential damages resulting from market
+            volatility, system downtime, AI hallucination, or misinterpretation
+            of the explainable UX. The system uses hard-coded safety rails, but
+            financial markets carry inherent risk.
+          </p>
+        </LegalSection>
 
-          </div>
-        </motion.div>
-      </section>
-    </Layout>
+        <LegalSection
+          title="5. Questions about these terms"
+          className="border-t border-border-subtle pt-8"
+        >
+          <p>
+            Write to us at{' '}
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="font-medium text-link-600 hover:underline"
+            >
+              {siteConfig.email}
+            </a>{' '}
+            and we will respond in line with our operational protocol.
+          </p>
+        </LegalSection>
+      </LegalLayout>
+    </>
   );
 }

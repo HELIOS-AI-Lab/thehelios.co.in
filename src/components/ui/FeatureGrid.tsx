@@ -1,22 +1,55 @@
+'use client';
+
 import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/cn';
+import { riseIn, staggerContainer, VIEWPORT_ONCE } from '@/lib/motion';
 
 interface FeatureGridProps {
   columns?: 2 | 3 | 4;
   children: ReactNode;
   className?: string;
+  /**
+   * Cascade the children in as the grid enters the viewport. Set false when the
+   * caller already provides its own stagger container.
+   */
+  stagger?: boolean;
 }
 
-export function FeatureGrid({ columns = 3, children, className = '' }: FeatureGridProps) {
-  const colClasses = {
-    2: 'md:grid-cols-2',
-    3: 'md:grid-cols-2 lg:grid-cols-3',
-    4: 'md:grid-cols-2 lg:grid-cols-4',
-  };
+const colClasses = {
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-2 lg:grid-cols-3',
+  4: 'md:grid-cols-2 lg:grid-cols-4',
+};
+
+const gridStagger = staggerContainer(0.1);
+
+export function FeatureGrid({
+  columns = 3,
+  children,
+  className = '',
+  stagger = true,
+}: FeatureGridProps) {
+  const classes = cn(
+    'grid grid-cols-1 gap-6 w-full',
+    colClasses[columns],
+    className
+  );
+
+  if (!stagger) {
+    return <div className={classes}>{children}</div>;
+  }
 
   return (
-    <div className={`grid grid-cols-1 ${colClasses[columns]} gap-6 w-full ${className}`}>
+    <motion.div
+      className={classes}
+      variants={gridStagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={VIEWPORT_ONCE}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -24,22 +57,61 @@ interface FeatureItemProps {
   icon: ReactNode;
   title: string;
   description: ReactNode;
+  /** Zero-padded index shown in the corner, e.g. 1 renders as "01". */
+  index?: number;
+  className?: string;
 }
 
-export function FeatureItem({ icon, title, description }: FeatureItemProps) {
+/**
+ * Feature tile. Lifts on hover, warms its icon plate, and runs a hairline
+ * gradient across the top edge — enough motion to feel responsive without
+ * competing with the copy.
+ */
+export function FeatureItem({
+  icon,
+  title,
+  description,
+  index,
+  className,
+}: FeatureItemProps) {
   return (
-    <div className="flex flex-col gap-3 p-5 border border-border-default rounded bg-surface-card hover:border-border-strong transition-colors duration-150 ease-standard">
-      <div className="w-10 h-10 rounded bg-neutral-100 text-primary-700 flex items-center justify-center shrink-0">
+    <motion.div
+      variants={riseIn}
+      whileHover={{ y: -6 }}
+      transition={{ type: 'spring', stiffness: 320, damping: 26 }}
+      className={cn(
+        'group relative flex h-full flex-col gap-3 overflow-hidden rounded-xl border border-border-default bg-surface-card p-6',
+        'transition-shadow duration-300 ease-standard hover:border-accent-500/40 hover:shadow-lift',
+        className
+      )}
+    >
+      {/* Hairline that wipes across the top edge on hover */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-accent-500 via-accent-400 to-transparent transition-transform duration-500 ease-standard group-hover:scale-x-100"
+      />
+
+      {index !== undefined && (
+        <span
+          aria-hidden="true"
+          className="absolute right-5 top-5 font-mono text-[11px] font-bold tracking-widest text-text-tertiary/60 transition-colors duration-300 group-hover:text-accent-500"
+        >
+          {String(index).padStart(2, '0')}
+        </span>
+      )}
+
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-primary-700 transition-all duration-300 ease-spring group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-accent-500 group-hover:text-white">
         {icon}
       </div>
+
       <div>
-        <h4 className="text-[16px] font-semibold text-text-primary mb-1.5 leading-tight tracking-tight">
+        <h3 className="mb-1.5 text-[16px] font-semibold leading-tight tracking-tight text-text-primary">
           {title}
-        </h4>
-        <p className="text-[14px] text-text-secondary leading-relaxed">
+        </h3>
+        <p className="text-[14px] leading-relaxed text-text-secondary">
           {description}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
