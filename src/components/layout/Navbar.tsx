@@ -79,7 +79,7 @@ export default function Navbar() {
           : 'h-16 bg-primary-700 border-transparent'
       } text-white`}
     >
-      <div className="flex h-full items-center justify-between px-6 max-w-[1440px] mx-auto">
+      <div className="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 max-w-[1440px] mx-auto">
 
         {/* Brand with Next.js Image */}
         <Link
@@ -162,7 +162,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+          className="md:hidden -mr-1 flex h-10 w-10 items-center justify-center text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
           onClick={() => setIsMobileMenuOpen((open) => !open)}
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMobileMenuOpen}
@@ -193,7 +193,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.24, ease: EASE_STANDARD }}
-            className="md:hidden absolute top-full left-0 w-full bg-primary-800/95 backdrop-blur-xl border-b border-white/10 shadow-8"
+            className="md:hidden absolute top-full left-0 w-full max-h-[calc(100dvh-3.5rem)] overflow-y-auto overscroll-contain bg-primary-800/95 backdrop-blur-xl border-b border-white/10 shadow-8"
           >
             <motion.nav
               aria-label="Mobile"

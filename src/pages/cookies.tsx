@@ -76,7 +76,7 @@ export default function CookiesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT_ONCE}
-            className="mt-2 grid gap-6 md:grid-cols-2"
+            className="mt-2 grid gap-4 sm:grid-cols-2 sm:gap-6"
           >
             {categories.map((category) => (
               <motion.div
@@ -84,7 +84,7 @@ export default function CookiesPage() {
                 variants={riseIn}
                 whileHover={{ y: -5 }}
                 transition={{ type: 'spring', stiffness: 320, damping: 26 }}
-                className="group relative overflow-hidden rounded-lg border border-border-default bg-surface-card p-6 transition-colors duration-300 hover:border-accent-500/40 hover:shadow-lift"
+                className="group relative h-full overflow-hidden rounded-lg border border-border-default bg-surface-card p-5 transition-colors duration-300 hover:border-accent-500/40 hover:shadow-lift sm:p-6"
               >
                 <span
                   aria-hidden="true"

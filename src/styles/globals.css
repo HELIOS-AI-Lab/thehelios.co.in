@@ -13,16 +13,46 @@
     -moz-osx-font-smoothing: grayscale;
     /* Kept out of the base rule so it can be disabled for reduced motion */
     scroll-behavior: auto;
+    /*
+     * Decorative absolutely-positioned layers (aurora blobs, offset grids) are
+     * wider than a phone viewport by design. Clipping here stops them dragging
+     * a horizontal scrollbar onto narrow screens; `clip` rather than `hidden`
+     * so it never turns the body into a scroll container.
+     */
+    overflow-x: clip;
   }
 
   /* Offsets in-page anchor jumps by the fixed navbar height */
   html {
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 5rem;
+    /* Keeps 1rem-based spacing from inflating on very wide displays */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   /* Ensures inputs don't zoom on iOS devices */
   input, textarea, select {
     font-size: 16px;
+    /* Stops long placeholder/value text forcing a field past its column */
+    max-width: 100%;
+  }
+
+  /*
+   * Replaced elements default to their intrinsic size, which overflows a
+   * narrow column. Constraining them here means no individual call site has
+   * to remember to.
+   */
+  img, svg, video, canvas, iframe {
+    max-width: 100%;
+  }
+
+  img, video {
+    height: auto;
+  }
+
+  /* Long addresses, emails and URLs wrap instead of widening their container */
+  p, li, a, address, blockquote, h1, h2, h3 {
+    overflow-wrap: break-word;
   }
 
   /* Focus ring fallback for accessibility */
@@ -63,9 +93,34 @@
    */
   .aurora-blob {
     border-radius: 9999px;
-    filter: blur(72px);
+    /* A 72px blur over a full-width layer is expensive on mobile GPUs, and the
+       blob is proportionally smaller there anyway — scale the radius with it. */
+    filter: blur(44px);
     will-change: transform, opacity;
     pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .aurora-blob {
+      filter: blur(72px);
+    }
+  }
+
+  /*
+   * Fluid type for the display headings. Tailwind's responsive variants handle
+   * the step changes; this covers the stretch between breakpoints where a fixed
+   * px heading either crowds a 360px phone or looks undersized on a 27" panel.
+   */
+  .text-fluid-display {
+    font-size: clamp(1.875rem, 1.1rem + 3.4vw, 3.75rem);
+  }
+
+  .text-fluid-title {
+    font-size: clamp(1.5rem, 1.15rem + 1.6vw, 2.25rem);
+  }
+
+  .text-fluid-quote {
+    font-size: clamp(1.375rem, 1rem + 1.8vw, 2.25rem);
   }
 
   /* Masks a decorative layer so it fades out towards the edges */

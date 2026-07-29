@@ -106,7 +106,7 @@ export default function ContactForm({ variant = 'general' }: ContactFormProps) {
       variants={formStagger}
       initial="hidden"
       animate="visible"
-      className="flex w-full max-w-[480px] flex-col gap-4"
+      className="flex w-full max-w-[480px] flex-col gap-3.5 sm:gap-4"
     >
       <Field
         id="name"
@@ -168,12 +168,12 @@ export default function ContactForm({ variant = 'general' }: ContactFormProps) {
 
       <motion.div
         variants={fadeInUp}
-        className="mt-2 flex justify-end border-t border-border-subtle pt-4"
+        className="mt-2 flex justify-stretch border-t border-border-subtle pt-4 sm:justify-end"
       >
         <button
           type="submit"
           disabled={isSubmitting}
-          className="group relative inline-flex h-10 min-w-[140px] items-center justify-center gap-2 overflow-hidden rounded-lg bg-accent-500 px-5 text-[14px] font-semibold text-primary-700 transition-all duration-200 ease-standard hover:bg-accent-400 hover:shadow-accent active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-neutral-200 disabled:text-neutral-500 disabled:shadow-none disabled:active:scale-100"
+          className="group relative inline-flex h-11 w-full min-w-[140px] items-center justify-center gap-2 overflow-hidden rounded-lg bg-accent-500 px-5 text-[14px] font-semibold text-primary-700 sm:h-10 sm:w-auto transition-all duration-200 ease-standard hover:bg-accent-400 hover:shadow-accent active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-neutral-200 disabled:text-neutral-500 disabled:shadow-none disabled:active:scale-100"
         >
           <span
             aria-hidden="true"
@@ -232,7 +232,7 @@ function Field({
 
   const shellClasses = cn(
     'relative flex bg-white border rounded transition-colors duration-200 ease-standard',
-    as === 'input' ? 'h-10 items-center px-3' : 'p-3',
+    as === 'input' ? 'h-11 items-center px-3 sm:h-10' : 'p-3',
     error
       ? 'border-error-500'
       : focused

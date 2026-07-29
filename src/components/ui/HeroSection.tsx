@@ -49,7 +49,7 @@ export function HeroSection({
   return (
     <section
       className={cn(
-        'relative w-full overflow-hidden border-b py-16 md:py-24 lg:py-32',
+        'relative w-full overflow-hidden border-b py-14 sm:py-16 md:py-24 lg:py-28 xl:py-32',
         isInverse ? 'border-white/10' : 'border-border-default',
         bgClass,
         className
@@ -69,13 +69,13 @@ export function HeroSection({
         />
         <div
           className={cn(
-            'aurora-blob animate-aurora absolute -top-28 left-[8%] h-[26rem] w-[26rem] gpu',
+            'aurora-blob animate-aurora absolute -top-28 left-[8%] h-[16rem] w-[16rem] gpu sm:h-[22rem] sm:w-[22rem] lg:h-[26rem] lg:w-[26rem]',
             isInverse ? 'bg-accent-500/25' : 'bg-accent-500/12'
           )}
         />
         <div
           className={cn(
-            'aurora-blob animate-aurora-slow absolute -bottom-40 right-[4%] h-[30rem] w-[30rem] gpu',
+            'aurora-blob animate-aurora-slow absolute -bottom-40 right-[4%] h-[18rem] w-[18rem] gpu sm:h-[24rem] sm:w-[24rem] lg:h-[30rem] lg:w-[30rem]',
             isInverse ? 'bg-link-500/20' : 'bg-link-500/10'
           )}
         />
@@ -86,7 +86,7 @@ export function HeroSection({
         initial="hidden"
         animate="visible"
         className={cn(
-          'relative max-w-[1024px] px-6 mx-auto flex flex-col gap-6',
+          'relative max-w-[1024px] 2xl:max-w-[1140px] px-4 sm:px-6 lg:px-8 mx-auto flex flex-col gap-5 sm:gap-6',
           alignClass
         )}
       >
@@ -95,7 +95,7 @@ export function HeroSection({
           <motion.span
             variants={fadeInUp}
             className={cn(
-              'inline-flex items-center gap-2 px-3 py-1 rounded-full text-[12px] font-semibold uppercase tracking-widest',
+              'inline-flex max-w-full items-center gap-2 px-3 py-1 rounded-full text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider sm:tracking-widest',
               badgeClass
             )}
           >
@@ -111,7 +111,7 @@ export function HeroSection({
         <motion.h1
           variants={fadeInUp}
           className={cn(
-            'text-[34px] md:text-[48px] lg:text-[56px] font-bold leading-[1.15] tracking-[-0.02em]',
+            'text-fluid-display font-bold leading-[1.15] tracking-[-0.02em]',
             titleClass
           )}
         >
@@ -122,7 +122,7 @@ export function HeroSection({
         <motion.p
           variants={fadeInUp}
           className={cn(
-            'text-[16px] md:text-[18px] max-w-[720px] leading-relaxed',
+            'text-[15px] sm:text-[16px] md:text-[18px] max-w-[720px] leading-relaxed',
             subtitleClass
           )}
         >
@@ -134,8 +134,13 @@ export function HeroSection({
           <motion.div
             variants={fadeInUp}
             className={cn(
-              'flex flex-wrap gap-3 mt-4',
-              alignment === 'center' ? 'justify-center' : 'justify-start'
+              // Full-width stacked buttons below `sm` — side by side they drop
+              // to two lines of label each on a 360px screen
+              'mt-4 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap',
+              '[&>*]:w-full sm:[&>*]:w-auto',
+              alignment === 'center'
+                ? 'items-stretch sm:items-center sm:justify-center'
+                : 'items-stretch sm:items-center sm:justify-start'
             )}
           >
             {primaryAction}

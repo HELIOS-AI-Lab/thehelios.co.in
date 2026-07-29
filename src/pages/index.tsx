@@ -117,11 +117,11 @@ export default function HomePage() {
               { value: 100, suffix: '%', label: 'Explainable decisions' },
               { value: 4, suffix: '', label: 'Active research tracks' },
             ].map((stat) => (
-              <div key={stat.label} className="px-4 py-5 text-center">
+              <div key={stat.label} className="px-4 py-4 text-center sm:py-5">
                 <AnimatedCounter
                   value={stat.value}
                   suffix={stat.suffix}
-                  className="block text-[26px] font-bold text-accent-500"
+                  className="block text-[24px] font-bold text-accent-500 sm:text-[26px]"
                 />
                 <span className="mt-1 block text-[11px] font-semibold uppercase tracking-wider text-white/50">
                   {stat.label}
@@ -135,17 +135,17 @@ export default function HomePage() {
       {/* Trust strip */}
       <section
         aria-label="Technologies we build with"
-        className="border-b border-border-subtle bg-neutral-50 py-8"
+        className="border-b border-border-subtle bg-neutral-50 py-6 sm:py-8"
       >
-        <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-6 md:flex-row md:gap-10">
-          <span className="shrink-0 text-[12px] font-bold uppercase tracking-[0.2em] text-text-tertiary">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-4 px-4 sm:gap-6 sm:px-6 md:flex-row md:gap-10 lg:px-8">
+          <span className="shrink-0 text-[11px] font-bold uppercase tracking-[0.2em] text-text-tertiary sm:text-[12px]">
             Built with
           </span>
           <Marquee className="flex-1" duration={28}>
             {BUILT_WITH.map((tech) => (
               <span
                 key={tech}
-                className="mx-8 font-mono text-lg font-bold text-text-tertiary transition-colors duration-300 hover:text-primary-700"
+                className="mx-5 font-mono text-base font-bold text-text-tertiary transition-colors duration-300 hover:text-primary-700 sm:mx-8 sm:text-lg"
               >
                 {tech}
               </span>
@@ -155,7 +155,7 @@ export default function HomePage() {
       </section>
 
       {/* Core capabilities */}
-      <section className="mx-auto max-w-[1280px] px-6 py-24">
+      <section className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="What we build"
           title="Core capabilities"
@@ -169,7 +169,7 @@ export default function HomePage() {
               View technical specs
             </ButtonLink>
           }
-          className="mb-16"
+          className="mb-10 sm:mb-12 lg:mb-16"
         />
 
         <FeatureGrid columns={3}>
@@ -180,14 +180,14 @@ export default function HomePage() {
       </section>
 
       {/* Compounding intelligence — domain visual */}
-      <section className="border-y border-border-subtle bg-surface-sunken py-24">
-        <div className="mx-auto grid max-w-[1280px] items-center gap-16 px-6 lg:grid-cols-2">
+      <section className="border-y border-border-subtle bg-surface-sunken py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto grid max-w-[1280px] items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
           <div>
             <SectionHeading
               eyebrow="Compounding intelligence"
               title="Every decision the agent makes, it can explain"
               description="Our agents model your goals continuously, rebalance against risk, and show their reasoning in your own language — so the growth curve is something you understand rather than something you hope for."
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             />
 
             <motion.ul
@@ -214,7 +214,7 @@ export default function HomePage() {
                 <motion.li
                   key={item.text}
                   variants={fadeInUp}
-                  className="flex items-center gap-3 text-[15px] font-medium text-text-primary"
+                  className="flex items-start gap-3 text-[14px] font-medium text-text-primary sm:items-center sm:text-[15px]"
                 >
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-50 text-accent-600">
                     {item.icon}
@@ -226,13 +226,13 @@ export default function HomePage() {
           </div>
 
           <Reveal variants={riseIn}>
-            <SpotlightCard className="p-6" tilt={4}>
-              <div className="mb-5 flex items-center justify-between">
+            <SpotlightCard className="p-5 sm:p-6" tilt={4}>
+              <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-text-tertiary">
                     Modelled portfolio
                   </p>
-                  <p className="mt-1 text-[24px] font-bold text-primary-700">
+                  <p className="mt-1 text-[20px] font-bold text-primary-700 sm:text-[24px]">
                     <AnimatedCounter value={121} prefix="₹" suffix="K" />
                     <span className="ml-2 align-middle text-[13px] font-semibold text-success-500">
                       +218%
@@ -248,7 +248,7 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <div className="h-[200px] w-full">
+              <div className="h-[150px] w-full sm:h-[180px] lg:h-[200px]">
                 <MarketSparkline />
               </div>
 
@@ -262,21 +262,21 @@ export default function HomePage() {
       </section>
 
       {/* Mission callout */}
-      <section className="relative overflow-hidden bg-primary-700 py-24 text-white">
+      <section className="relative overflow-hidden bg-primary-700 py-16 text-white sm:py-20 lg:py-24">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-grid-dark bg-grid mask-fade-edges"
         />
-        <div className="relative mx-auto grid max-w-[1280px] items-center gap-16 px-6 md:grid-cols-2">
+        <div className="relative mx-auto grid max-w-[1280px] items-center gap-10 px-4 sm:px-6 md:grid-cols-2 lg:gap-16 lg:px-8">
           <div>
             <Reveal>
-              <span className="mb-6 inline-block rounded bg-accent-500 px-3 py-1 text-[11px] font-bold uppercase text-primary-700">
+              <span className="mb-5 inline-block rounded bg-accent-500 px-3 py-1 text-[11px] font-bold uppercase text-primary-700 sm:mb-6">
                 Our deeper purpose
               </span>
             </Reveal>
 
             <Reveal delay={0.08}>
-              <blockquote className="mb-6 text-[30px] font-bold leading-tight md:text-[36px]">
+              <blockquote className="text-fluid-quote mb-6 font-bold leading-tight">
                 <p>
                   “We’re not just building a product. We’re training a generation
                   of confident investors.”
@@ -285,7 +285,7 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal delay={0.14}>
-              <p className="mb-8 text-[18px] leading-relaxed text-white/70">
+              <p className="mb-8 text-[16px] leading-relaxed text-white/70 sm:text-[18px]">
                 HELIOS empowers every Indian — regardless of income or education —
                 to understand and grow their money. AI should feel personal, not
                 robotic.
@@ -305,7 +305,7 @@ export default function HomePage() {
           </div>
 
           <Reveal variants={riseIn} className="relative">
-            <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+            <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-3 backdrop-blur-sm sm:p-4">
               <div className="mb-3 flex items-center gap-2 px-2">
                 <span className="h-2 w-2 rounded-full bg-accent-500" />
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
@@ -319,29 +319,29 @@ export default function HomePage() {
             {/* Warm halo behind the diagram */}
             <div
               aria-hidden="true"
-              className="aurora-blob animate-aurora absolute -inset-8 -z-10 bg-accent-500/20"
+              className="aurora-blob animate-aurora absolute -inset-4 -z-10 bg-accent-500/20 sm:-inset-8"
             />
           </Reveal>
         </div>
       </section>
 
       {/* Closing CTA */}
-      <section className="px-6 py-24">
+      <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <Reveal variants={riseIn}>
-          <div className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-border-default bg-surface-card p-12 text-center">
+          <div className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-border-default bg-surface-card p-6 text-center sm:p-10 lg:p-12">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-accent-50 to-transparent"
             />
             <div className="relative">
-              <h2 className="mb-4 text-[32px] font-bold">
+              <h2 className="text-fluid-title mb-4 font-bold">
                 Join the HELIOS journey
               </h2>
-              <p className="mx-auto mb-10 max-w-xl text-[16px] text-text-secondary">
+              <p className="mx-auto mb-8 max-w-xl text-[15px] text-text-secondary sm:mb-10 sm:text-[16px]">
                 We’re a future-facing lab — open to collaborators, researchers,
                 and believers in the power of intelligence.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4 [&>*]:w-full sm:[&>*]:w-auto">
                 <ButtonLink href="/contact" variant="primary" size="lg">
                   Get started today
                 </ButtonLink>

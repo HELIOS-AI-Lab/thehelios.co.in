@@ -151,17 +151,17 @@ export default function ProductPage() {
       />
 
       {/* Manifesto quote */}
-      <section className="border-b border-border-default bg-surface-sunken py-16">
-        <div className="mx-auto max-w-[820px] px-6 text-center">
+      <section className="border-b border-border-default bg-surface-sunken py-12 sm:py-14 lg:py-16">
+        <div className="mx-auto max-w-[820px] px-4 text-center sm:px-6">
           <Reveal>
             <blockquote className="relative">
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 font-serif text-[96px] leading-none text-accent-500/15"
+                className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 font-serif text-[64px] leading-none text-accent-500/15 sm:-top-8 sm:text-[96px]"
               >
                 &ldquo;
               </span>
-              <p className="relative text-[24px] font-bold leading-snug text-primary-700 md:text-[28px]">
+              <p className="relative text-[19px] font-bold leading-snug text-primary-700 sm:text-[24px] md:text-[28px]">
                 We’re not just building a product. We’re training a generation of
                 confident, culturally aware, AI-powered investors.
               </p>
@@ -171,13 +171,13 @@ export default function ProductPage() {
       </section>
 
       {/* Core capabilities */}
-      <section className="mx-auto max-w-[1280px] px-6 py-24">
+      <section className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="The product"
           title="Core capabilities"
           description="Engineered for Bharat. Combining deep technical rigour with frictionless, human-centred design."
           align="center"
-          className="mb-16"
+          className="mb-10 sm:mb-12 lg:mb-16"
         />
 
         <motion.div
@@ -185,7 +185,7 @@ export default function ProductPage() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
-          className="grid gap-6 md:grid-cols-3"
+          className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
         >
           {capabilities.map((capability) => (
             <motion.div key={capability.title} variants={riseIn}>
@@ -194,10 +194,12 @@ export default function ProductPage() {
                   <span className="flex h-8 w-8 items-center justify-center rounded bg-primary-100 text-primary-700">
                     {capability.icon}
                   </span>
-                  <h3 className="text-[18px] font-bold">{capability.title}</h3>
+                  <h3 className="text-[16px] font-bold sm:text-[18px]">
+                    {capability.title}
+                  </h3>
                 </div>
 
-                <div className="flex flex-1 flex-col gap-6 p-5">
+                <div className="flex flex-1 flex-col gap-5 p-5 sm:gap-6">
                   <p className="text-[14px] text-text-secondary">
                     {capability.summary}
                   </p>
@@ -220,14 +222,14 @@ export default function ProductPage() {
       </section>
 
       {/* How it works */}
-      <section className="relative overflow-hidden bg-primary-700 py-24 text-white">
+      <section className="relative overflow-hidden bg-primary-700 py-16 text-white sm:py-20 lg:py-24">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-grid-dark bg-grid mask-fade-edges"
         />
 
-        <div className="relative mx-auto max-w-[1280px] px-6">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
+        <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
               <SectionHeading
                 eyebrow="Architecture"
@@ -238,7 +240,7 @@ export default function ProductPage() {
               />
 
               <Reveal delay={0.1}>
-                <p className="mb-8 text-[16px] leading-relaxed text-white/70">
+                <p className="mb-6 text-[15px] leading-relaxed text-white/70 sm:mb-8 sm:text-[16px]">
                   The future isn’t just coded. It’s felt. HELIOS is AI with a
                   human heartbeat: explaining itself clearly, and helping you act
                   wisely.
@@ -257,7 +259,7 @@ export default function ProductPage() {
             </div>
 
             <Reveal variants={riseIn}>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3 backdrop-blur-sm sm:p-4">
                 <div className="mb-3 flex items-center gap-2 px-2">
                   <span className="h-2 w-2 rounded-full bg-accent-500" />
                   <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
@@ -277,7 +279,7 @@ export default function ProductPage() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT_ONCE}
-            className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-12 grid gap-4 sm:grid-cols-2 sm:mt-16 lg:mt-20 lg:grid-cols-4"
           >
             {techStack.map((tech) => (
               <motion.div
@@ -285,7 +287,7 @@ export default function ProductPage() {
                 variants={riseIn}
                 whileHover={{ y: -6 }}
                 transition={{ type: 'spring', stiffness: 320, damping: 26 }}
-                className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-accent-500/40 hover:bg-white/10"
+                className="group relative h-full overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-colors duration-300 hover:border-accent-500/40 hover:bg-white/10 sm:p-6"
               >
                 <span
                   aria-hidden="true"
@@ -305,12 +307,12 @@ export default function ProductPage() {
       </section>
 
       {/* CTA */}
-      <section className="px-6 py-24 text-center">
+      <section className="px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <Reveal variants={riseIn}>
-          <h2 className="mb-6 text-[32px] font-bold text-primary-700">
+          <h2 className="text-fluid-title mb-5 font-bold text-primary-700 sm:mb-6">
             Ready to empower your financial journey?
           </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-[16px] text-text-secondary">
+          <p className="mx-auto mb-8 max-w-2xl text-[15px] text-text-secondary sm:mb-10 sm:text-[16px]">
             Join the waitlist to be among the first to experience Bharat’s most
             intelligent financial companion.
           </p>
@@ -319,7 +321,7 @@ export default function ProductPage() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT_ONCE}
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="mx-auto flex w-full max-w-sm flex-col items-stretch justify-center gap-3 sm:max-w-none sm:flex-row sm:items-center sm:gap-4 [&>*]:w-full sm:[&>*]:w-auto"
           >
             <motion.div variants={fadeInUp}>
               <ButtonLink

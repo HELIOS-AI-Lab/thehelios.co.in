@@ -87,14 +87,14 @@ export default function ContactPage() {
         jsonLd={jsonLd}
       />
 
-      <section className="relative mx-auto max-w-[1280px] px-6 py-24">
+      <section className="relative mx-auto max-w-[1280px] overflow-hidden px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         {/* Ambient warmth behind the form column */}
         <div
           aria-hidden="true"
-          className="aurora-blob animate-aurora pointer-events-none absolute -top-16 right-0 h-[24rem] w-[24rem] bg-accent-500/10"
+          className="aurora-blob animate-aurora pointer-events-none absolute -top-16 right-0 h-[16rem] w-[16rem] bg-accent-500/10 sm:h-[20rem] sm:w-[20rem] lg:h-[24rem] lg:w-[24rem]"
         />
 
-        <div className="relative grid items-start gap-20 lg:grid-cols-2">
+        <div className="relative grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Left column: connection details */}
           <motion.div
             variants={staggerContainer(0.1)}
@@ -103,7 +103,7 @@ export default function ContactPage() {
           >
             <motion.h1
               variants={fadeInLeft}
-              className="mb-6 text-[42px] font-bold leading-[1.1] text-primary-700 md:text-[48px]"
+              className="text-fluid-display mb-5 font-bold leading-[1.1] text-primary-700 sm:mb-6"
             >
               <RevealText text="Let’s start a" />
               <br />
@@ -112,24 +112,24 @@ export default function ContactPage() {
 
             <motion.p
               variants={fadeInUp}
-              className="mb-12 max-w-md text-[18px] text-text-secondary"
+              className="mb-10 max-w-md text-[16px] text-text-secondary sm:mb-12 sm:text-[18px]"
             >
               Whether you are a researcher looking to collaborate or a partner
               interested in our FinTech engine, we’re ready to talk.
             </motion.p>
 
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {channels.map((channel) => {
                 const body = (
                   <>
                     <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded border border-border-default bg-neutral-50 text-primary-600 transition-all duration-300 ease-spring group-hover:-rotate-6 group-hover:scale-105 group-hover:border-accent-500/40 group-hover:bg-accent-50 group-hover:text-accent-600">
                       {channel.icon}
                     </span>
-                    <span className="block">
-                      <span className="mb-1 block text-[14px] font-bold uppercase tracking-wider text-text-tertiary">
+                    <span className="block min-w-0">
+                      <span className="mb-1 block text-[13px] font-bold uppercase tracking-wider text-text-tertiary sm:text-[14px]">
                         {channel.label}
                       </span>
-                      <span className="block text-[16px] font-medium leading-relaxed text-primary-700">
+                      <span className="block break-words text-[15px] font-medium leading-relaxed text-primary-700 sm:text-[16px]">
                         {channel.value}
                       </span>
                     </span>
@@ -156,7 +156,7 @@ export default function ContactPage() {
             {/* Social */}
             <motion.div
               variants={fadeInUp}
-              className="mt-16 flex gap-6 border-t border-border-subtle pt-8"
+              className="mt-12 flex flex-wrap gap-6 border-t border-border-subtle pt-8 sm:mt-16"
             >
               <motion.a
                 href={siteConfig.socials.linkedin}
@@ -187,7 +187,7 @@ export default function ContactPage() {
           <Reveal
             variants={fadeInRight}
             immediate
-            className="relative overflow-hidden rounded-xl border border-border-default bg-white p-8 shadow-8 md:p-12"
+            className="relative overflow-hidden rounded-xl border border-border-default bg-white p-5 shadow-8 sm:p-8 lg:p-10 xl:p-12"
           >
             {/* Visual background element */}
             <div
@@ -196,7 +196,7 @@ export default function ContactPage() {
             />
 
             <div className="relative">
-              <div className="mb-8 flex items-center gap-2">
+              <div className="mb-6 flex items-center gap-2 sm:mb-8">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-success-500 animate-ping-ring" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-success-500" />
@@ -206,7 +206,7 @@ export default function ContactPage() {
                 </span>
               </div>
 
-              <h2 className="mb-8 text-[24px] font-bold text-primary-700">
+              <h2 className="mb-6 text-[20px] font-bold text-primary-700 sm:mb-8 sm:text-[24px]">
                 Send a message
               </h2>
               <ContactForm variant="general" />
@@ -216,20 +216,20 @@ export default function ContactPage() {
       </section>
 
       {/* Trust quote */}
-      <section className="relative overflow-hidden bg-primary-700 py-20 text-white">
+      <section className="relative overflow-hidden bg-primary-700 py-14 text-white sm:py-16 lg:py-20">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-grid-dark bg-grid mask-fade-edges"
         />
-        <div className="relative mx-auto max-w-[1280px] px-6 text-center">
+        <div className="relative mx-auto max-w-[1280px] px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
-            <p className="mb-6 font-mono text-[14px] uppercase tracking-[0.3em] text-accent-500">
+            <p className="mb-5 font-mono text-[12px] uppercase tracking-[0.2em] text-accent-500 sm:mb-6 sm:text-[14px] sm:tracking-[0.3em]">
               Operational protocol
             </p>
           </Reveal>
           <Reveal delay={0.1}>
             <blockquote className="mx-auto max-w-4xl">
-              <p className="text-[28px] font-bold leading-tight md:text-[36px]">
+              <p className="text-fluid-quote font-bold leading-tight">
                 “Transparency is the foundation of intelligence. Every inquiry is
                 handled with technical rigour and professional punctuality.”
               </p>

@@ -153,19 +153,19 @@ export default function AboutPage() {
       />
 
       {/* Mission & vision */}
-      <section className="mx-auto max-w-[1280px] border-b border-border-subtle px-6 py-20">
-        <div className="grid gap-12 md:grid-cols-2 lg:gap-24">
+      <section className="mx-auto max-w-[1280px] border-b border-border-subtle px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+        <div className="grid gap-10 md:grid-cols-2 lg:gap-16 xl:gap-24">
           {/* Mission */}
           <Reveal variants={fadeInLeft}>
-            <div className="mb-6 flex items-center gap-3">
+            <div className="mb-5 flex items-center gap-3 sm:mb-6">
               <span className="flex h-10 w-10 items-center justify-center rounded bg-accent-50 text-accent-700">
                 <Target className="h-5 w-5" />
               </span>
-              <h2 className="text-[26px] font-bold text-primary-700">
+              <h2 className="text-[22px] font-bold text-primary-700 sm:text-[26px]">
                 Our mission
               </h2>
             </div>
-            <div className="space-y-4 text-[15px] leading-relaxed text-text-secondary">
+            <div className="space-y-4 text-[14px] leading-relaxed text-text-secondary sm:text-[15px]">
               <p>
                 At HELIOS AI Labs, our mission is to build the next generation of
                 intelligent, explainable, and self-evolving AI agents — capable
@@ -188,15 +188,15 @@ export default function AboutPage() {
 
           {/* Vision */}
           <Reveal variants={fadeInRight}>
-            <div className="mb-6 flex items-center gap-3">
+            <div className="mb-5 flex items-center gap-3 sm:mb-6">
               <span className="flex h-10 w-10 items-center justify-center rounded bg-link-50 text-link-700">
                 <Eye className="h-5 w-5" />
               </span>
-              <h2 className="text-[26px] font-bold text-primary-700">
+              <h2 className="text-[22px] font-bold text-primary-700 sm:text-[26px]">
                 Our vision
               </h2>
             </div>
-            <div className="space-y-4 text-[15px] leading-relaxed text-text-secondary">
+            <div className="space-y-4 text-[14px] leading-relaxed text-text-secondary sm:text-[15px]">
               <p>
                 To lead Bharat’s transformation into an AI-empowered economy by
                 building transparent, self-evolving agents that support
@@ -235,27 +235,27 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="mx-auto max-w-[1280px] px-6 py-24">
+      <section className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="The people"
           title="Meet the team"
           description="We are a collective of engineers, researchers, and data scientists dedicated to building AI the right way."
-          className="mb-16"
+          className="mb-10 sm:mb-12 lg:mb-16"
         />
 
         {leadership.map((person) => (
-          <Reveal key={person.name} variants={riseIn} className="mb-12">
+          <Reveal key={person.name} variants={riseIn} className="mb-8 sm:mb-12">
             <Card variant="flat" className="items-stretch md:flex">
-              <div className="relative flex shrink-0 flex-col justify-center overflow-hidden border-b border-border-default bg-neutral-100 p-8 md:w-[320px] md:border-b-0 md:border-r">
+              <div className="relative flex shrink-0 flex-col justify-center overflow-hidden border-b border-border-default bg-neutral-100 p-6 sm:p-8 md:w-[260px] md:border-b-0 md:border-r lg:w-[320px]">
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 bg-grid-light bg-grid-sm opacity-60"
                 />
                 <div className="relative">
-                  <h3 className="mb-1 text-[22px] font-bold text-primary-700">
+                  <h3 className="mb-1 text-[20px] font-bold text-primary-700 sm:text-[22px]">
                     {person.name}
                   </h3>
-                  <p className="mb-4 text-[13px] font-semibold uppercase tracking-wider text-accent-700">
+                  <p className="mb-4 text-[12px] font-semibold uppercase tracking-wider text-accent-700 sm:text-[13px]">
                     {person.role}
                   </p>
                   <p className="inline-flex w-fit items-center gap-1.5 rounded-full border border-border-default bg-white px-2.5 py-1 text-[12px] font-medium">
@@ -264,11 +264,11 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
-              <CardBody className="flex flex-col justify-center gap-4 p-8 md:p-10">
+              <CardBody className="flex flex-col justify-center gap-4 p-6 sm:p-8 lg:p-10">
                 {person.bio.map((paragraph) => (
                   <p
                     key={paragraph.slice(0, 32)}
-                    className="text-[15px] leading-relaxed text-text-secondary"
+                    className="text-[14px] leading-relaxed text-text-secondary sm:text-[15px]"
                   >
                     {paragraph}
                   </p>
@@ -284,11 +284,11 @@ export default function AboutPage() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
-          className="grid gap-6 md:grid-cols-3"
+          className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
         >
           {teams.map((team) => (
             <motion.div key={team.title} variants={riseIn}>
-              <SpotlightCard className="h-full p-6" tilt={4}>
+              <SpotlightCard className="h-full p-5 sm:p-6" tilt={4}>
                 <span className="mb-5 flex h-10 w-10 items-center justify-center rounded bg-neutral-100 text-text-primary transition-all duration-300 ease-spring group-hover/spot:scale-110 group-hover/spot:bg-accent-500 group-hover/spot:text-white">
                   {team.icon}
                 </span>
@@ -303,13 +303,13 @@ export default function AboutPage() {
       </section>
 
       {/* Why now, why us */}
-      <section className="relative overflow-hidden bg-primary-700 py-24 text-white">
+      <section className="relative overflow-hidden bg-primary-700 py-16 text-white sm:py-20 lg:py-24">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-grid-dark bg-grid mask-fade-edges"
         />
 
-        <div className="relative mx-auto max-w-[1280px] px-6">
+        <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Why now"
             title="Why now, why us?"
@@ -320,7 +320,7 @@ export default function AboutPage() {
           />
 
           <Reveal delay={0.1}>
-            <p className="mx-auto mb-16 max-w-3xl text-center text-[16px] leading-relaxed text-white/70">
+            <p className="mx-auto mb-10 max-w-3xl text-center text-[15px] leading-relaxed text-white/70 sm:mb-12 sm:text-[16px] lg:mb-16">
               Our prototypes are live, our research is in motion, and our vision
               aligns with the urgent need for intelligent, explainable systems
               across finance and beyond. We’re looking to connect with those who
@@ -333,7 +333,7 @@ export default function AboutPage() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT_ONCE}
-            className="mb-16 grid gap-6 md:grid-cols-3"
+            className="mb-10 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:mb-16 lg:grid-cols-3"
           >
             {audiences.map((audience) => (
               <motion.div
@@ -341,7 +341,7 @@ export default function AboutPage() {
                 variants={riseIn}
                 whileHover={{ y: -6 }}
                 transition={{ type: 'spring', stiffness: 320, damping: 26 }}
-                className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-8 transition-colors duration-300 hover:border-accent-500/40 hover:bg-white/10"
+                className="group relative h-full overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-accent-500/40 hover:bg-white/10 sm:p-8"
               >
                 <span
                   aria-hidden="true"
@@ -359,8 +359,8 @@ export default function AboutPage() {
           </motion.div>
 
           <Reveal className="text-center">
-            <div className="inline-flex flex-col items-center">
-              <p className="mb-6 text-[18px] font-semibold">
+            <div className="inline-flex w-full flex-col items-center sm:w-auto">
+              <p className="mb-6 text-[16px] font-semibold sm:text-[18px]">
                 If this resonates with you — we’d love to talk.
               </p>
               <ButtonLink

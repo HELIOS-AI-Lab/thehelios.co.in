@@ -49,7 +49,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-surface-page border-t border-border-default mt-16 text-[13px] relative overflow-hidden">
+    <footer className="w-full bg-surface-page border-t border-border-default mt-12 sm:mt-16 text-[13px] relative overflow-hidden">
       {/* Structural Top Border Highlight */}
       <div className="absolute top-0 left-0 w-full h-1 bg-primary-700" />
 
@@ -59,11 +59,12 @@ export default function Footer() {
         className="pointer-events-none absolute inset-0 bg-grid-light bg-grid mask-fade-bottom opacity-70"
       />
 
-      <div className="relative max-w-[1440px] mx-auto px-6 md:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-8 mb-16">
+      <div className="relative max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16">
+        {/* Two columns from `sm` (brand spans both) before the 12-col desk grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10 lg:gap-8 mb-10 sm:mb-12 lg:mb-16">
 
           {/* Brand Col (Spans 4 columns) */}
-          <div className="md:col-span-4 flex flex-col items-start">
+          <div className="sm:col-span-2 md:col-span-4 flex flex-col items-start">
             <Link
               href="/"
               className="group flex items-center gap-3 font-bold text-[16px] text-text-primary mb-5 tracking-tight"
@@ -78,7 +79,7 @@ export default function Footer() {
               />
               HELIOS AI Labs
             </Link>
-            <p className="text-text-secondary leading-relaxed max-w-[280px] mb-6 text-[14px]">
+            <p className="text-text-secondary leading-relaxed max-w-[38ch] mb-6 text-[14px]">
               Building the next generation of intelligent, explainable, and
               self-evolving AI agents for Bharat and beyond.
             </p>
@@ -93,7 +94,7 @@ export default function Footer() {
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.92 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-                  className="w-8 h-8 rounded border border-border-default flex items-center justify-center text-text-secondary hover:text-accent-600 hover:border-accent-500 hover:bg-accent-50 transition-colors"
+                  className="w-10 h-10 sm:w-9 sm:h-9 rounded border border-border-default flex items-center justify-center text-text-secondary hover:text-accent-600 hover:border-accent-500 hover:bg-accent-50 transition-colors"
                 >
                   <Icon className="w-4 h-4" />
                 </motion.a>
@@ -141,7 +142,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter / Waitlist Col (Spans 4 cols) */}
-          <div className="md:col-span-4">
+          <div className="sm:col-span-2 md:col-span-4">
             <h2 className="text-[11px] font-bold text-text-primary uppercase tracking-widest mb-5">
               Join the intelligence
             </h2>
@@ -161,7 +162,7 @@ export default function Footer() {
                 You&rsquo;re on the list. We&rsquo;ll be in touch.
               </motion.p>
             ) : (
-              <form className="flex gap-2 max-w-sm" onSubmit={handleSubscribe}>
+              <form className="flex w-full max-w-sm gap-2" onSubmit={handleSubscribe}>
                 <label htmlFor="newsletter-email" className="sr-only">
                   Email address
                 </label>
@@ -172,12 +173,12 @@ export default function Footer() {
                   placeholder="you@company.com"
                   required
                   autoComplete="email"
-                  className="h-9 px-3 flex-1 bg-surface-sunken border border-border-default rounded text-[13px] focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all placeholder:text-text-tertiary"
+                  className="h-10 px-3 flex-1 min-w-0 bg-surface-sunken border border-border-default rounded text-[13px] focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all placeholder:text-text-tertiary"
                 />
                 <button
                   type="submit"
                   disabled={subscribeState === 'submitting'}
-                  className="h-9 px-4 bg-primary-700 text-white rounded text-[13px] font-semibold hover:bg-primary-600 active:bg-primary-800 active:scale-[0.97] disabled:opacity-70 transition-all duration-150 ease-standard flex items-center justify-center gap-1.5 min-w-[72px]"
+                  className="h-10 px-4 shrink-0 bg-primary-700 text-white rounded text-[13px] font-semibold hover:bg-primary-600 active:bg-primary-800 active:scale-[0.97] disabled:opacity-70 transition-all duration-150 ease-standard flex items-center justify-center gap-1.5 min-w-[72px]"
                 >
                   {subscribeState === 'submitting' ? (
                     <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -199,7 +200,7 @@ export default function Footer() {
                 </span>
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="text-link-500 hover:underline mt-1 w-fit"
+                  className="text-link-500 hover:underline mt-1 w-fit max-w-full break-all"
                 >
                   {siteConfig.email}
                 </a>
@@ -209,11 +210,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-6 border-t border-border-default text-[12px] text-text-tertiary">
-          <p>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-border-default text-[12px] text-text-tertiary">
+          <p className="text-center md:text-left">
             Copyright &copy; {currentYear} {siteConfig.name}. All rights reserved.
           </p>
-          <div className="flex gap-6 mt-4 md:mt-0 font-medium">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">
             <Link
               href="/privacy"
               className="hover:text-text-primary transition-colors"

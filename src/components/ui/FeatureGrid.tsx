@@ -17,9 +17,9 @@ interface FeatureGridProps {
 }
 
 const colClasses = {
-  2: 'md:grid-cols-2',
-  3: 'md:grid-cols-2 lg:grid-cols-3',
-  4: 'md:grid-cols-2 lg:grid-cols-4',
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 lg:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-4',
 };
 
 const gridStagger = staggerContainer(0.1);
@@ -31,7 +31,7 @@ export function FeatureGrid({
   stagger = true,
 }: FeatureGridProps) {
   const classes = cn(
-    'grid grid-cols-1 gap-6 w-full',
+    'grid grid-cols-1 gap-4 sm:gap-6 w-full',
     colClasses[columns],
     className
   );
@@ -80,7 +80,7 @@ export function FeatureItem({
       whileHover={{ y: -6 }}
       transition={{ type: 'spring', stiffness: 320, damping: 26 }}
       className={cn(
-        'group relative flex h-full flex-col gap-3 overflow-hidden rounded-xl border border-border-default bg-surface-card p-6',
+        'group relative flex h-full flex-col gap-3 overflow-hidden rounded-xl border border-border-default bg-surface-card p-5 sm:p-6',
         'transition-shadow duration-300 ease-standard hover:border-accent-500/40 hover:shadow-lift',
         className
       )}
@@ -94,7 +94,7 @@ export function FeatureItem({
       {index !== undefined && (
         <span
           aria-hidden="true"
-          className="absolute right-5 top-5 font-mono text-[11px] font-bold tracking-widest text-text-tertiary/60 transition-colors duration-300 group-hover:text-accent-500"
+          className="absolute right-4 top-4 font-mono text-[11px] font-bold tracking-widest text-text-tertiary/60 transition-colors duration-300 group-hover:text-accent-500 sm:right-5 sm:top-5"
         >
           {String(index).padStart(2, '0')}
         </span>

@@ -23,14 +23,14 @@ export default function NotFoundPage() {
         noindex
       />
 
-      <section className="relative flex flex-1 items-center overflow-hidden bg-primary-700 px-6 py-32 text-white">
+      <section className="relative flex flex-1 items-center overflow-hidden bg-primary-700 px-4 py-20 text-white sm:px-6 sm:py-24 lg:px-8 lg:py-32">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-grid-dark bg-grid mask-fade-edges"
         />
         <div
           aria-hidden="true"
-          className="aurora-blob animate-aurora pointer-events-none absolute -top-24 left-1/3 h-[26rem] w-[26rem] bg-accent-500/20"
+          className="aurora-blob animate-aurora pointer-events-none absolute -top-24 left-1/3 h-[16rem] w-[16rem] bg-accent-500/20 sm:h-[22rem] sm:w-[22rem] lg:h-[26rem] lg:w-[26rem]"
         />
 
         <div className="relative mx-auto w-full max-w-[820px] text-center">
@@ -42,21 +42,21 @@ export default function NotFoundPage() {
           </Reveal>
 
           <Reveal immediate variants={riseIn}>
-            <h1 className="mb-5 text-[40px] font-bold leading-[1.1] tracking-tight md:text-[56px]">
+            <h1 className="text-fluid-display mb-5 font-bold leading-[1.1] tracking-tight">
               This route has no{' '}
               <span className="text-accent-500">reasoning trace</span>
             </h1>
           </Reveal>
 
           <Reveal immediate delay={0.12}>
-            <p className="mx-auto mb-10 max-w-xl text-[17px] leading-relaxed text-white/70">
+            <p className="mx-auto mb-8 max-w-xl text-[15px] leading-relaxed text-white/70 sm:mb-10 sm:text-[17px]">
               The page you asked for doesn&rsquo;t exist — it may have moved, or
               the link may be out of date. Here is where everything else lives.
             </p>
           </Reveal>
 
           <Reveal immediate delay={0.18}>
-            <div className="mb-12 flex flex-wrap justify-center gap-3">
+            <div className="mx-auto mb-10 flex w-full max-w-sm flex-col justify-center gap-3 sm:mb-12 sm:max-w-none sm:flex-row sm:flex-wrap [&>*]:w-full sm:[&>*]:w-auto">
               <ButtonLink
                 href="/"
                 variant="primary"
@@ -77,7 +77,7 @@ export default function NotFoundPage() {
           </Reveal>
 
           <Reveal immediate delay={0.24}>
-            <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {destinations.map((destination) => (
                 <li key={destination.href}>
                   <ButtonLink

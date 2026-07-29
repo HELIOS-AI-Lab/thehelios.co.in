@@ -44,7 +44,7 @@ export default function SectionHeading({
       whileInView="visible"
       viewport={VIEWPORT_ONCE}
       className={cn(
-        'flex flex-col gap-6 md:flex-row md:items-end md:justify-between',
+        'flex flex-col gap-5 sm:gap-6 md:flex-row md:items-end md:justify-between',
         align === 'center' && 'md:flex-col md:items-center',
         className
       )}
@@ -59,7 +59,7 @@ export default function SectionHeading({
           <motion.p
             variants={fadeInUp}
             className={cn(
-              'mb-4 flex items-center gap-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.22em]',
+              'mb-3 flex flex-wrap items-center gap-2.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] sm:mb-4 sm:text-[11px] sm:tracking-[0.22em]',
               align === 'center' && 'justify-center',
               inverse ? 'text-accent-400' : 'text-accent-600'
             )}
@@ -78,7 +78,7 @@ export default function SectionHeading({
         <MotionHeading
           variants={fadeInUp}
           className={cn(
-            'text-[28px] md:text-[34px] font-bold tracking-tight leading-[1.15]',
+            'text-fluid-title font-bold tracking-tight leading-[1.15]',
             inverse ? 'text-white' : 'text-primary-700'
           )}
         >
@@ -89,7 +89,7 @@ export default function SectionHeading({
           <motion.p
             variants={fadeInUp}
             className={cn(
-              'mt-4 text-[16px] leading-relaxed',
+              'mt-3 text-[15px] leading-relaxed sm:mt-4 sm:text-[16px]',
               inverse ? 'text-white/70' : 'text-text-secondary'
             )}
           >

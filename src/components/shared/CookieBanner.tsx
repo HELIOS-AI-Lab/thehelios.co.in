@@ -64,9 +64,9 @@ export default function CookieBanner() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 24, scale: 0.97 }}
           transition={{ duration: 0.4, ease: EASE_SOFT }}
-          className="fixed bottom-4 left-4 right-4 z-50 md:left-6 md:right-auto md:w-[420px]"
+          className="fixed bottom-3 left-3 right-3 z-50 sm:bottom-4 sm:left-4 sm:right-4 md:left-6 md:right-auto md:w-[420px]"
         >
-          <div className="flex flex-col gap-4 rounded-xl border border-border-default bg-surface-card/95 p-5 shadow-lift backdrop-blur-xl">
+          <div className="flex flex-col gap-4 rounded-xl border border-border-default bg-surface-card/95 p-4 shadow-lift backdrop-blur-xl sm:p-5">
             <div className="flex gap-3">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-50 text-accent-600">
                 <Cookie className="h-4 w-4" />
@@ -93,14 +93,14 @@ export default function CookieBanner() {
             <div className="flex justify-end gap-2 pt-1">
               <button
                 onClick={() => record('declined')}
-                className="inline-flex h-8 items-center justify-center rounded-lg border border-border-default bg-white px-3 text-[13px] font-semibold text-text-primary transition-all duration-150 ease-standard hover:border-border-strong hover:bg-neutral-100 active:scale-[0.97]"
+                className="inline-flex h-10 flex-1 items-center justify-center rounded-lg border border-border-default bg-white px-3 text-[13px] font-semibold text-text-primary transition-all duration-150 ease-standard hover:border-border-strong hover:bg-neutral-100 active:scale-[0.97] sm:h-9 sm:flex-none"
               >
                 Decline
               </button>
 
               <button
                 onClick={() => record('accepted')}
-                className="inline-flex h-8 items-center justify-center rounded-lg bg-accent-500 px-4 text-[13px] font-semibold text-primary-700 transition-all duration-150 ease-standard hover:bg-accent-400 hover:shadow-accent active:scale-[0.97]"
+                className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-accent-500 px-4 text-[13px] font-semibold text-primary-700 transition-all duration-150 ease-standard hover:bg-accent-400 hover:shadow-accent active:scale-[0.97] sm:h-9 sm:flex-none"
               >
                 Accept
               </button>

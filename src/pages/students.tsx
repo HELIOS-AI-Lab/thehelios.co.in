@@ -155,12 +155,15 @@ export default function StudentsPage() {
       />
 
       {/* Research tracks */}
-      <section id="tracks" className="mx-auto max-w-[1280px] px-6 py-24">
+      <section
+        id="tracks"
+        className="mx-auto max-w-[1280px] scroll-mt-20 px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+      >
         <SectionHeading
           eyebrow="Programme"
           title="Research tracks"
           description="Fellows are embedded directly into our lab teams, working on production-grade AI infrastructure and research papers."
-          className="mb-16"
+          className="mb-10 sm:mb-12 lg:mb-16"
         />
 
         <FeatureGrid columns={3}>
@@ -171,19 +174,19 @@ export default function StudentsPage() {
       </section>
 
       {/* Benefits */}
-      <section className="overflow-hidden border-y border-border-subtle bg-neutral-50 py-20">
-        <div className="mx-auto max-w-[1280px] px-6">
+      <section className="overflow-hidden border-y border-border-subtle bg-neutral-50 py-14 sm:py-16 lg:py-20">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={staggerContainer(0.12)}
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT_ONCE}
-            className="grid items-center gap-12 md:grid-cols-2"
+            className="grid items-center gap-10 md:grid-cols-2 md:gap-12"
           >
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               <motion.h2
                 variants={fadeInUp}
-                className="mb-2 text-[28px] font-bold text-primary-700"
+                className="text-fluid-title mb-2 font-bold text-primary-700"
               >
                 Why fellow with HELIOS?
               </motion.h2>
@@ -194,7 +197,7 @@ export default function StudentsPage() {
                   variants={fadeInUp}
                   className="group flex gap-4"
                 >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded border border-accent-500/20 bg-accent-500/10 text-accent-700 transition-all duration-300 ease-spring group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-accent-500 group-hover:text-white">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-accent-500/20 bg-accent-500/10 text-accent-700 transition-all duration-300 ease-spring group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-accent-500 group-hover:text-white sm:h-12 sm:w-12">
                     {benefit.icon}
                   </span>
                   <div>
@@ -212,9 +215,9 @@ export default function StudentsPage() {
             <motion.div variants={riseIn} className="relative mt-8 md:mt-0">
               <SpotlightCard
                 tilt={5}
-                className="relative z-10 border-2 border-accent-500/20 bg-white p-8 shadow-8"
+                className="relative z-10 border-2 border-accent-500/20 bg-white p-6 shadow-8 sm:p-8"
               >
-                <blockquote className="mb-8 text-[18px] italic leading-relaxed text-primary-700">
+                <blockquote className="mb-6 text-[16px] italic leading-relaxed text-primary-700 sm:mb-8 sm:text-[18px]">
                   <p>
                     “The fellowship isn’t about fetching coffee. It’s about
                     solving the port-scanning abuse alerts on EC2, optimising
@@ -239,7 +242,7 @@ export default function StudentsPage() {
               {/* Decorative technical grid element */}
               <div
                 aria-hidden="true"
-                className="absolute -bottom-6 -right-6 z-0 h-full w-full rounded border border-dashed border-border-strong bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] opacity-40 [background-size:16px_16px]"
+                className="absolute -bottom-4 -right-4 z-0 hidden h-full w-full rounded border border-dashed border-border-strong bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] opacity-40 [background-size:16px_16px] sm:-bottom-6 sm:-right-6 sm:block"
               />
             </motion.div>
           </motion.div>
@@ -247,12 +250,12 @@ export default function StudentsPage() {
       </section>
 
       {/* Programme shape */}
-      <section className="mx-auto max-w-[1280px] px-6 py-24">
+      <section className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="Twelve weeks"
           title="How the fellowship runs"
           description="A fixed shape, so you always know what the next milestone is and what you will have to show at the end of it."
-          className="mb-16"
+          className="mb-10 sm:mb-12 lg:mb-16"
         />
 
         <motion.ol
@@ -260,7 +263,7 @@ export default function StudentsPage() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
-          className="relative grid gap-8 md:grid-cols-3"
+          className="relative grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-8"
         >
           {/* Connecting rule behind the markers on wide screens */}
           <span
@@ -276,7 +279,7 @@ export default function StudentsPage() {
               <p className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-text-tertiary">
                 {phase.label}
               </p>
-              <h3 className="mb-2 text-[18px] font-bold text-primary-700">
+              <h3 className="mb-2 text-[17px] font-bold text-primary-700 sm:text-[18px]">
                 {phase.title}
               </h3>
               <p className="text-[14px] leading-relaxed text-text-secondary">
@@ -290,11 +293,11 @@ export default function StudentsPage() {
       {/* Application */}
       <section
         id="apply"
-        className="mx-auto max-w-[1024px] scroll-mt-24 px-6 pb-24"
+        className="mx-auto max-w-[1024px] scroll-mt-20 px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24"
       >
-        <div className="grid gap-12 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-3 md:gap-10 lg:gap-12">
           <Reveal className="md:col-span-1">
-            <h2 className="mb-4 text-[28px] font-bold text-primary-700">
+            <h2 className="text-fluid-title mb-4 font-bold text-primary-700">
               Apply for the fellowship
             </h2>
             <p className="mb-6 text-[14px] leading-relaxed text-text-secondary">
@@ -317,7 +320,7 @@ export default function StudentsPage() {
           </Reveal>
 
           <Reveal variants={riseIn} delay={0.1} className="md:col-span-2">
-            <Card variant="flat" className="bg-white p-8 shadow-8">
+            <Card variant="flat" className="bg-white p-5 shadow-8 sm:p-8">
               <ContactForm variant="student" />
             </Card>
           </Reveal>

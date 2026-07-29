@@ -22,10 +22,12 @@ const variants: Record<ButtonVariant, string> = {
     'bg-error-500 text-white hover:bg-error-600 active:bg-error-700',
 };
 
+// Heights step down at `sm` — the taller base keeps every control at a
+// comfortable touch target on phones without inflating the desktop chrome.
 const sizes: Record<ButtonSize, string> = {
-  sm: 'h-7 px-3 text-[13px] min-w-[64px]',
-  md: 'h-9 px-4 text-[14px] min-w-[80px]',
-  lg: 'h-11 px-6 text-[15px] min-w-[96px]',
+  sm: 'h-8 px-3 text-[13px] min-w-[64px] sm:h-7',
+  md: 'h-10 px-4 text-[14px] min-w-[80px] sm:h-9',
+  lg: 'h-11 px-5 text-[14px] min-w-[96px] sm:px-6 sm:text-[15px]',
 };
 
 interface SharedProps {

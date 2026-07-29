@@ -134,17 +134,17 @@ export default function DevelopersPage() {
       />
 
       {/* Research areas */}
-      <section className="mx-auto max-w-[1280px] px-6 py-24">
+      <section className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="Research surface"
           title={
             <span className="flex items-center gap-3">
-              <Workflow className="h-6 w-6 shrink-0 text-accent-600" />
+              <Workflow className="h-5 w-5 shrink-0 text-accent-600 sm:h-6 sm:w-6" />
               What we explore together
             </span>
           }
           description="We operate at the intersection of complex data systems and human behavioural psychology. Our tech stack is built to support rigorous, scalable exploration."
-          className="mb-12"
+          className="mb-8 sm:mb-10 lg:mb-12"
         />
 
         <motion.div
@@ -152,7 +152,7 @@ export default function DevelopersPage() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
-          className="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {researchAreas.map((item) => (
             <motion.div
@@ -179,13 +179,13 @@ export default function DevelopersPage() {
       </section>
 
       {/* What we value */}
-      <section className="border-y border-border-subtle bg-neutral-50 py-24">
-        <div className="mx-auto max-w-[1280px] px-6">
+      <section className="border-y border-border-subtle bg-neutral-50 py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Principles"
             title="What we value"
             align="center"
-            className="mb-16"
+            className="mb-10 sm:mb-12 lg:mb-16"
           />
 
           <motion.div
@@ -193,7 +193,7 @@ export default function DevelopersPage() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT_ONCE}
-            className="grid gap-8 lg:grid-cols-3"
+            className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
           >
             {/* Value 1 */}
             <motion.div variants={riseIn}>
@@ -201,9 +201,9 @@ export default function DevelopersPage() {
                 variant="flat"
                 className="h-full border-t-4 border-t-primary-700 bg-white"
               >
-                <CardBody className="p-8">
+                <CardBody className="p-6 sm:p-8">
                   <BrainCircuit className="mb-6 h-8 w-8 text-primary-700" />
-                  <h3 className="mb-4 text-[20px] font-bold">
+                  <h3 className="mb-4 text-[18px] font-bold sm:text-[20px]">
                     Research curiosity
                   </h3>
                   <p className="mb-6 text-[14px] leading-relaxed text-text-secondary">
@@ -237,9 +237,9 @@ export default function DevelopersPage() {
                 variant="flat"
                 className="h-full border-t-4 border-t-accent-500 bg-white"
               >
-                <CardBody className="p-8">
+                <CardBody className="p-6 sm:p-8">
                   <Target className="mb-6 h-8 w-8 text-accent-600" />
-                  <h3 className="mb-4 text-[20px] font-bold">Clean thought</h3>
+                  <h3 className="mb-4 text-[18px] font-bold sm:text-[20px]">Clean thought</h3>
                   <p className="mb-6 text-[14px] leading-relaxed text-text-secondary">
                     Simplicity over hype. Ethics and purpose. We write code that
                     is observable, maintainable, and explicitly designed to do no
@@ -265,9 +265,9 @@ export default function DevelopersPage() {
                 variant="flat"
                 className="h-full border-t-4 border-t-link-500 bg-white"
               >
-                <CardBody className="p-8">
+                <CardBody className="p-6 sm:p-8">
                   <Fingerprint className="mb-6 h-8 w-8 text-link-600" />
-                  <h3 className="mb-4 text-[20px] font-bold">AI with soul</h3>
+                  <h3 className="mb-4 text-[18px] font-bold sm:text-[20px]">AI with soul</h3>
                   <p className="mb-6 text-[14px] leading-relaxed text-text-secondary">
                     Build agents that reflect, learn, and grow. Think like a
                     designer, act like an engineer.
@@ -290,7 +290,7 @@ export default function DevelopersPage() {
       </section>
 
       {/* Developer manifesto — terminal */}
-      <section className="mx-auto max-w-[1024px] px-6 py-24">
+      <section className="mx-auto max-w-[1024px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <Reveal variants={riseIn}>
           <SpotlightCard
             tilt={3}
@@ -303,17 +303,17 @@ export default function DevelopersPage() {
               <span className="h-3 w-3 rounded-full bg-error-500" />
               <span className="h-3 w-3 rounded-full bg-warning-500" />
               <span className="h-3 w-3 rounded-full bg-success-500" />
-              <span className="ml-4 font-mono text-[12px] text-white/50">
+              <span className="ml-2 font-mono text-[11px] text-white/50 sm:ml-4 sm:text-[12px]">
                 MANIFESTO.md
               </span>
             </div>
 
             {/* Terminal body */}
-            <div className="flex flex-col gap-8 p-8 font-mono text-white md:p-12">
+            <div className="flex flex-col gap-6 p-5 font-mono text-white sm:gap-8 sm:p-8 md:p-12">
               <div>
                 <div className="mb-4 flex items-center gap-3 text-accent-500">
-                  <Terminal className="h-6 w-6" />
-                  <h2 className="font-sans text-[24px] font-bold tracking-tight">
+                  <Terminal className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
+                  <h2 className="font-sans text-[20px] font-bold tracking-tight sm:text-[24px]">
                     Developer manifesto
                   </h2>
                 </div>
@@ -322,10 +322,10 @@ export default function DevelopersPage() {
 
               <Typewriter
                 lines={manifestoLines}
-                className="text-[14px] leading-relaxed text-white/80"
+                className="text-[13px] leading-relaxed text-white/80 sm:text-[14px]"
               />
 
-              <div className="border-t border-primary-700 pt-8">
+              <div className="border-t border-primary-700 pt-6 sm:pt-8">
                 <p className="mb-4 text-[12px] text-white/40">
                   ~ % ./join_mission.sh
                 </p>
