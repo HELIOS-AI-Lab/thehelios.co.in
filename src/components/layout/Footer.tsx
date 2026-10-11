@@ -38,14 +38,34 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   const [subscribeState, setSubscribeState] = useState<SubscribeState>('idle');
 
-  // No newsletter backend exists yet, so this acknowledges the submission
-  // rather than silently swallowing it. Wire to a real endpoint when there is
-  // one — the button and states are already in place.
+  const [subscribeError, setSubscribeError] = useState<string | null>(null);
+
   const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setSubscribeState('submitting');
-    await new Promise((resolve) => setTimeout(resolve, 700));
-    setSubscribeState('done');
+    setSubscribeError(null);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          kind: 'newsletter',
+          email: form.email.value,
+          website: form.website.value,
+        }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) throw new Error(data.error || 'Sending failed. Please try again.');
+      setSubscribeState('done');
+    } catch (err) {
+      setSubscribeError(
+        err instanceof TypeError
+          ? 'Could not reach the server. Please try again.'
+          : (err as Error).message
+      );
+      setSubscribeState('idle');
+    }
   };
 
   return (
@@ -186,7 +206,20 @@ export default function Footer() {
                     'Join'
                   )}
                 </button>
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                />
               </form>
+            )}
+            {subscribeError && (
+              <p role="alert" className="mt-2 text-[12px] font-medium text-error-600">
+                {subscribeError}
+              </p>
             )}
 
             <div className="mt-8 pt-6 border-t border-border-subtle">

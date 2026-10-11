@@ -35,6 +35,7 @@ export default function ContactForm({ variant = 'general' }: ContactFormProps) {
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const set = (key: keyof Fields) => (value: string) => {
     setFields((prev) => ({ ...prev, [key]: value }));
@@ -64,11 +65,30 @@ export default function ContactForm({ variant = 'general' }: ContactFormProps) {
     if (!validate()) return;
 
     setIsSubmitting(true);
-    // No submission endpoint exists yet — this acknowledges the message
-    // locally. Swap for a real POST when the backend lands.
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setIsSuccess(true);
+    setSubmitError(null);
+    const website = (e.currentTarget as HTMLFormElement).website?.value ?? '';
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          kind: variant === 'student' ? 'student' : 'contact',
+          ...fields,
+          website,
+        }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) throw new Error(data.error || 'Sending failed. Please try again.');
+      setIsSuccess(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof TypeError
+          ? 'Could not reach the server. Check your connection and try again.'
+          : (err as Error).message
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -165,6 +185,22 @@ export default function ContactForm({ variant = 'general' }: ContactFormProps) {
         onChange={set('message')}
         error={errors.message}
       />
+
+      {/* Honeypot: hidden from people and screen readers, filled by bots */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 opacity-0"
+      />
+
+      {submitError && (
+        <p role="alert" className="text-[13px] font-medium text-error-600">
+          {submitError}
+        </p>
+      )}
 
       <motion.div
         variants={fadeInUp}
