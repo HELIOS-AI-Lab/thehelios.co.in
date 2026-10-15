@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# thehelios.co.in
+
+Official website of HELIOS AI Lab, live at [thehelios.co.in](https://thehelios.co.in).
+
+This is a [Next.js](https://nextjs.org) project (Pages Router) deployed to Cloudflare Workers using [OpenNext](https://opennext.js.org/cloudflare).
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the home page by modifying `src/pages/index.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Requirements: Node.js 20.9 or newer and npm.
+
+## Environment Variables
+
+The contact form API (`src/pages/api/contact.ts`) needs these variables. Copy `.dev.vars.example` to `.dev.vars` for local Cloudflare preview. Never commit `.dev.vars` or real values.
+
+- `RESEND_API_KEY`: Resend API key used to send form emails
+- `CONTACT_FROM`: sender shown on form emails
+- `CONTACT_TO`: optional recipient address for form submissions
+
+## Available Scripts
+
+- `npm run dev`: start the development server
+- `npm run build`: create a production build
+- `npm run start`: run the production build locally
+- `npm run lint`: run ESLint
+- `npm run preview`: build with OpenNext and preview in the Cloudflare Workers runtime
+- `npm run deploy`: build with OpenNext and deploy to Cloudflare
+- `npm run upload`: build with OpenNext and upload a version to Cloudflare
+- `npm run cf-typegen`: regenerate Cloudflare environment types
+
+## Project Structure
+
+```
+public/              Static assets
+src/
+  components/        Layout, shared, UI and visual components
+  lib/               Helpers, site config, structured data
+  pages/             Routes and the /api/contact endpoint
+  styles/            Global CSS
+wrangler.jsonc       Cloudflare Workers configuration
+open-next.config.ts  OpenNext configuration
+```
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js Documentation](https://nextjs.org/docs) - Next.js features and API.
+- [OpenNext for Cloudflare](https://opennext.js.org/cloudflare) - how this app runs on Cloudflare Workers.
+- [Cloudflare Workers Docs](https://developers.cloudflare.com/workers/) - Workers and Wrangler documentation.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy on Cloudflare
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This site is deployed on Cloudflare Workers (worker name `thehelioscoin`), not Vercel. Changes merged into the `dev` branch are built and deployed by Cloudflare. Production releases are approved by the release owner.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To test in the Cloudflare runtime locally before opening a PR, run `npm run preview`.
