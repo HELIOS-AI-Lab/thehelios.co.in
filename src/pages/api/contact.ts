@@ -7,7 +7,7 @@ import { siteConfig } from '@/lib/site';
  *
  * Worker secrets (`wrangler secret put …`), which OpenNext exposes on process.env:
  *   RESEND_API_KEY  required
- *   CONTACT_TO      optional, defaults to siteConfig.email
+ *   CONTACT_TO      optional, comma-separated, defaults to siteConfig.email
  *   CONTACT_FROM    optional, must be on a domain verified in Resend
  *
  * ponytail: honeypot + length caps only. Add Turnstile or a Cloudflare WAF
@@ -91,7 +91,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: process.env.CONTACT_FROM || 'HELIOS Website <forms@thehelios.co.in>',
-        to: [process.env.CONTACT_TO || siteConfig.email],
+        to: (process.env.CONTACT_TO || siteConfig.email).split(',').map((s) => s.trim()),
         reply_to: f.email,
         subject,
         text,
