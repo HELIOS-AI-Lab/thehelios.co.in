@@ -9,9 +9,15 @@ import { siteConfig } from '@/lib/site';
  *   RESEND_API_KEY  required
  *   CONTACT_TO      optional, comma-separated, defaults to siteConfig.email
  *   CONTACT_FROM    optional, must be on a domain verified in Resend
+ *   RESEND_CONTACTS_API_KEY  optional, a key allowed to create contacts; newsletter
+ *                   signups are saved to Resend Audience with it (falls back to
+ *                   RESEND_API_KEY, which is enough if that key has full access)
  *
- * ponytail: honeypot + length caps only. Add Turnstile or a Cloudflare WAF
- * rate-limit rule on /api/contact if spam shows up.
+ * Each sender also gets a fixed-text confirmation email.
+ *
+ * ponytail: honeypot + length caps only. The confirmation email goes to whatever
+ * address is typed in, so add Turnstile or a Cloudflare WAF rate-limit rule on
+ * /api/contact as soon as spam or abuse shows up.
  */
 
 const KINDS = ['contact', 'student', 'newsletter'] as const;
@@ -85,26 +91,64 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .filter(Boolean)
     .join('\n');
 
-  try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        from: process.env.CONTACT_FROM || 'HELIOS Website <forms@thehelios.co.in>',
-        to: (process.env.CONTACT_TO || siteConfig.email).split(',').map((s) => s.trim()),
-        reply_to: f.email,
-        subject,
-        text,
-      }),
-    });
-    if (!r.ok) {
-      console.error('contact: Resend returned', r.status, await r.text());
-      return res.status(502).json({ ok: false, error: 'Sending failed. Please try again.' });
-    }
-  } catch (err) {
-    console.error('contact: Resend request failed', err);
+  const from = process.env.CONTACT_FROM || 'HELIOS Website <forms@thehelios.co.in>';
+  const team = (process.env.CONTACT_TO || siteConfig.email).split(',').map((s) => s.trim());
+
+  // 1. The team notification is the one that must succeed.
+  const sent = await resend(apiKey, '/emails', { from, to: team, reply_to: f.email, subject, text });
+  if (!sent) {
     return res.status(502).json({ ok: false, error: 'Sending failed. Please try again.' });
   }
 
+  // 2. Best effort: confirmation to the sender, and newsletter signups saved as
+  // Resend contacts. Failures are logged and never fail the request.
+  // The confirmation is fixed text with nothing the visitor typed in it, so the
+  // form can't be used to send someone else arbitrary content.
+  await Promise.all([
+    resend(apiKey, '/emails', {
+      from,
+      to: [f.email],
+      reply_to: team[0],
+      subject: CONFIRM[kind].subject,
+      text: CONFIRM[kind].text,
+    }),
+    kind === 'newsletter' &&
+      resend(process.env.RESEND_CONTACTS_API_KEY || apiKey, '/contacts', {
+        email: f.email,
+        unsubscribed: false,
+      }),
+  ]);
+
   return res.status(200).json({ ok: true });
+}
+
+const SIGNOFF = '\n\nThe HELIOS team\nhttps://thehelios.co.in';
+const CONFIRM: Record<Kind, { subject: string; text: string }> = {
+  contact: {
+    subject: 'We received your message - HELIOS',
+    text: 'Thank you for contacting HELIOS. We have received your message and will get back to you soon.' + SIGNOFF,
+  },
+  student: {
+    subject: 'We received your enquiry - HELIOS',
+    text: 'Thank you for your interest in HELIOS. We have received your enquiry and will get back to you soon.' + SIGNOFF,
+  },
+  newsletter: {
+    subject: 'You are subscribed to HELIOS updates',
+    text: 'Thank you for subscribing to HELIOS updates. You will hear from us when we have news to share.\n\nIf this was not you, reply to this email and we will remove you.' + SIGNOFF,
+  },
+};
+
+async function resend(key: string, path: string, payload: unknown): Promise<boolean> {
+  try {
+    const r = await fetch(`https://api.resend.com${path}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!r.ok) console.error(`contact: Resend ${path} returned`, r.status, await r.text());
+    return r.ok;
+  } catch (err) {
+    console.error(`contact: Resend ${path} request failed`, err);
+    return false;
+  }
 }
