@@ -24,7 +24,10 @@ const KINDS = ['contact', 'student', 'newsletter'] as const;
 type Kind = (typeof KINDS)[number];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const LIMITS = { name: 120, email: 254, college: 160, interest: 160, message: 5000 };
+const LIMITS = { name: 120, email: 254, phone: 32, platform: 120, college: 160, interest: 160, message: 5000 };
+// Optional mobile number: 7-15 digits, with + ( ) - and spaces allowed.
+const PHONE_RE = /^\+?[\d\s()-]{7,20}$/;
+const digits = (s: string) => s.replace(/\D/g, '').length;
 
 type Field = keyof typeof LIMITS;
 
@@ -54,6 +57,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const f = {
     name: clean(body.name, 'name'),
     email: clean(body.email, 'email'),
+    phone: clean(body.phone, 'phone'),
+    platform: clean(body.platform, 'platform'),
     college: clean(body.college, 'college'),
     interest: clean(body.interest, 'interest'),
     message: clean(body.message, 'message'),
@@ -61,6 +66,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (!EMAIL_RE.test(f.email)) {
     return res.status(400).json({ ok: false, error: 'Please enter a valid email address.' });
+  }
+  if (f.phone && !(PHONE_RE.test(f.phone) && digits(f.phone) >= 7 && digits(f.phone) <= 15)) {
+    return res.status(400).json({ ok: false, error: 'Please enter a valid mobile number.' });
   }
   if (kind !== 'newsletter' && !f.name) {
     return res.status(400).json({ ok: false, error: 'Please tell us your name.' });
@@ -84,6 +92,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     `Form: ${kind}`,
     f.name && `Name: ${f.name}`,
     `Email: ${f.email}`,
+    f.phone && `Mobile: ${f.phone}`,
+    f.platform && `Portfolio platform: ${f.platform}`,
     f.college && `College: ${f.college}`,
     f.interest && `Interest: ${f.interest}`,
     f.message && `\n${f.message}`,

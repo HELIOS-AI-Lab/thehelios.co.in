@@ -15,6 +15,8 @@ interface ContactFormProps {
 interface Fields {
   name: string;
   email: string;
+  phone: string;
+  platform: string;
   college: string;
   interest: string;
   message: string;
@@ -23,10 +25,30 @@ interface Fields {
 const EMPTY: Fields = {
   name: '',
   email: '',
+  phone: '',
+  platform: '',
   college: '',
   interest: '',
   message: '',
 };
+
+// Suggestions only (native <datalist>); visitors can type anything.
+const PLATFORMS = [
+  'Zerodha Kite',
+  'Groww',
+  'Upstox',
+  'Angel One',
+  'ICICI Direct',
+  'HDFC Securities',
+  'Kotak Securities',
+  'Dhan',
+  'Excel / Google Sheets',
+  'Not managing a portfolio yet',
+];
+
+// Same rule as the API: optional, but if given, 7-15 digits with + ( ) - and spaces.
+const isPhone = (v: string) =>
+  /^\+?[\d\s()-]{7,20}$/.test(v) && (v.match(/\d/g)?.length ?? 0) >= 7 && (v.match(/\d/g)?.length ?? 0) <= 15;
 
 const formStagger = staggerContainer(0.07, 0.05);
 
@@ -51,6 +73,9 @@ export default function ContactForm({ variant = 'general' }: ContactFormProps) {
       next.email = 'Please enter an email address.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(fields.email.trim())) {
       next.email = 'That email address does not look right.';
+    }
+    if (fields.phone.trim() && !isPhone(fields.phone.trim())) {
+      next.phone = 'That mobile number does not look right.';
     }
     if (variant === 'student' && !fields.college.trim()) {
       next.college = 'Please tell us where you study.';
@@ -151,6 +176,37 @@ export default function ContactForm({ variant = 'general' }: ContactFormProps) {
         error={errors.email}
       />
 
+      <Field
+        id="phone"
+        type="tel"
+        inputMode="tel"
+        label="Mobile number"
+        placeholder="+91 98765 43210"
+        autoComplete="tel"
+        value={fields.phone}
+        onChange={set('phone')}
+        error={errors.phone}
+      />
+
+      {variant === 'general' && (
+        <>
+          <Field
+            id="platform"
+            label="Which platform do you use to manage your portfolio?"
+            placeholder="e.g. Zerodha Kite, Groww, Excel"
+            list="platform-options"
+            value={fields.platform}
+            onChange={set('platform')}
+            error={errors.platform}
+          />
+          <datalist id="platform-options">
+            {PLATFORMS.map((p) => (
+              <option key={p} value={p} />
+            ))}
+          </datalist>
+        </>
+      )}
+
       {variant === 'student' && (
         <>
           <Field
@@ -243,6 +299,8 @@ interface FieldProps {
   required?: boolean;
   error?: string;
   as?: 'input' | 'textarea';
+  list?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode'];
 }
 
 /**
@@ -262,6 +320,8 @@ function Field({
   required = false,
   error,
   as = 'input',
+  list,
+  inputMode,
 }: FieldProps) {
   const [focused, setFocused] = useState(false);
   const errorId = `${id}-error`;
@@ -326,6 +386,8 @@ function Field({
             required={required}
             placeholder={placeholder}
             autoComplete={autoComplete}
+            list={list}
+            inputMode={inputMode}
             value={value}
             aria-invalid={Boolean(error)}
             aria-describedby={error ? errorId : undefined}
