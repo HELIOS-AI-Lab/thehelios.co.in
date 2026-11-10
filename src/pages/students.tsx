@@ -63,7 +63,7 @@ const benefits = [
     icon: <Lightbulb className="h-5 w-5" />,
     title: 'Direct mentorship',
     description:
-      'Weekly one-to-one sessions with Srikanth and our lead engineers to guide your technical growth.',
+      'Mentorship from our engineers to guide your technical growth.',
   },
   {
     icon: <FileSearch className="h-5 w-5" />,
