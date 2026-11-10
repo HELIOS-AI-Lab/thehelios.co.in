@@ -1,11 +1,11 @@
 import type { AppProps } from 'next/app';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import Head from 'next/head';
-import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { MotionConfig } from 'framer-motion';
 
 import { siteConfig } from '@/lib/site';
+import CloudflareAnalytics from '@/components/shared/CloudflareAnalytics';
 import CookieBanner from '@/components/shared/CookieBanner';
 import ScrollProgress from '@/components/ui/ScrollProgress';
 
@@ -27,7 +27,6 @@ const jetbrainsMono = JetBrains_Mono({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const cfBeaconToken = process.env.NEXT_PUBLIC_CF_BEACON_TOKEN;
 
   return (
     /*
@@ -70,14 +69,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </div>
 
-        {cfBeaconToken && (
-          <Script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
-            strategy="afterInteractive"
-          />
-        )}
+        <CloudflareAnalytics />
         <CookieBanner />
       </div>
     </MotionConfig>

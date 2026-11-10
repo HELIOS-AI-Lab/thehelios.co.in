@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Cookie, Settings, Activity } from 'lucide-react';
 
+import CookiePreferencesButton from '@/components/shared/CookiePreferencesButton';
 import Seo from '@/components/shared/Seo';
 import LegalLayout, { LegalSection } from '@/components/shared/LegalLayout';
 import { riseIn, staggerContainer, VIEWPORT_ONCE } from '@/lib/motion';
@@ -120,6 +121,7 @@ export default function CookiesPage() {
             demographics. Choosing &ldquo;Decline&rdquo; keeps only the cookies
             that are strictly necessary.
           </p>
+          <CookiePreferencesButton />
         </LegalSection>
       </LegalLayout>
     </>
