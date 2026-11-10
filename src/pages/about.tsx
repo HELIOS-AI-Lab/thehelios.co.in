@@ -61,6 +61,10 @@ const leadership = [
   },
 ];
 
+// Founder/partner profiles are hidden on request. Set to true to show them again.
+const SHOW_LEADERSHIP = false;
+const visibleLeadership: typeof leadership = SHOW_LEADERSHIP ? leadership : [];
+
 const teams = [
   {
     icon: <Cpu className="h-5 w-5" />,
@@ -111,7 +115,7 @@ const visionPoints = [
 
 // The founder/partner profiles are surfaced to search engines as Person nodes
 // attached to the Organization, which is what powers knowledge-panel linkage.
-const peopleSchema = leadership.map((person) => ({
+const peopleSchema = visibleLeadership.map((person) => ({
   '@type': 'Person',
   name: person.name,
   jobTitle: person.role,
@@ -243,7 +247,7 @@ export default function AboutPage() {
           className="mb-10 sm:mb-12 lg:mb-16"
         />
 
-        {leadership.map((person) => (
+        {visibleLeadership.map((person) => (
           <Reveal key={person.name} variants={riseIn} className="mb-8 sm:mb-12">
             <Card variant="flat" className="items-stretch md:flex">
               <div className="relative flex shrink-0 flex-col justify-center overflow-hidden border-b border-border-default bg-neutral-100 p-6 sm:p-8 md:w-[260px] md:border-b-0 md:border-r lg:w-[320px]">
