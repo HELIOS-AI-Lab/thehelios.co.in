@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { MotionConfig } from 'framer-motion';
 
 import { siteConfig } from '@/lib/site';
+import CloudflareAnalytics from '@/components/shared/CloudflareAnalytics';
 import CookieBanner from '@/components/shared/CookieBanner';
 import ScrollProgress from '@/components/ui/ScrollProgress';
 
@@ -68,6 +69,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </div>
 
+        <CloudflareAnalytics />
         <CookieBanner />
       </div>
     </MotionConfig>
