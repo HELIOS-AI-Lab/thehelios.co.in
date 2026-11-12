@@ -25,7 +25,7 @@ The contact form API (`src/pages/api/contact.ts`) needs these variables. Copy `.
 
 - `RESEND_API_KEY`: Resend API key used to send form emails
 - `CONTACT_FROM`: sender shown on form emails
-- `CONTACT_TO`: optional recipient address for form submissions
+- `CONTACT_TO`: optional recipient address for form submissions; defaults to `siteConfig.formNotificationEmail` (`heliosailabs.india@gmail.com`). The public `mailto:` on the site uses `siteConfig.email` separately.
 
 ## Available Scripts
 
