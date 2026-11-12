@@ -15,6 +15,8 @@ export const siteConfig = {
   tagline: "Bharat's Open AI Wealth Engine",
   founded: '2025',
   email: 'info@thehelios.co.in',
+  /** Inbox for contact, student and newsletter form notifications (Resend). */
+  formNotificationEmail: 'heliosailabs.india@gmail.com',
   privacyEmail: 'privacy@thehelios.co.in',
   ogImage: '/og-image.png',
   address: {
