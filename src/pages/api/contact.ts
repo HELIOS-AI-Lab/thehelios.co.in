@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { siteConfig } from '@/lib/site';
+import { resolveContactNotificationRecipients } from '@/lib/contact-notification';
 
 /**
  * Contact, student and newsletter submissions, delivered as a plain-text email
@@ -7,7 +7,7 @@ import { siteConfig } from '@/lib/site';
  *
  * Worker secrets (`wrangler secret put …`), which OpenNext exposes on process.env:
  *   RESEND_API_KEY  required
- *   CONTACT_TO      optional, comma-separated, defaults to siteConfig.email
+ *   CONTACT_TO      optional, comma-separated, defaults to siteConfig.formNotificationEmail
  *   CONTACT_FROM    optional, must be on a domain verified in Resend
  *   RESEND_CONTACTS_API_KEY  optional, a key allowed to create contacts; newsletter
  *                   signups are saved to Resend Audience with it (falls back to
@@ -102,7 +102,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .join('\n');
 
   const from = process.env.CONTACT_FROM || 'HELIOS Website <forms@thehelios.co.in>';
-  const team = (process.env.CONTACT_TO || siteConfig.email).split(',').map((s) => s.trim());
+  const team = resolveContactNotificationRecipients(process.env.CONTACT_TO);
 
   // 1. The team notification is the one that must succeed.
   const sent = await resend(apiKey, '/emails', { from, to: team, reply_to: f.email, subject, text });
