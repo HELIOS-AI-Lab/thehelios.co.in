@@ -1,35 +1,20 @@
 'use client';
 
-import { useCallback, useState, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Cookie } from 'lucide-react';
 import { EASE_SOFT } from '@/lib/motion';
-
-const STORAGE_KEY = 'helios_cookie_consent';
-
-/** Sentinel returned on the server, where localStorage does not exist. */
-const UNKNOWN = 'unknown';
-
-function subscribe(onStoreChange: () => void) {
-  // Keeps the banner in sync if the choice is made in another tab
-  window.addEventListener('storage', onStoreChange);
-  return () => window.removeEventListener('storage', onStoreChange);
-}
-
-function getSnapshot(): string {
-  try {
-    return localStorage.getItem(STORAGE_KEY) ?? '';
-  } catch {
-    // Storage can be unavailable (private mode, blocked cookies). Treating it
-    // as "already answered" is better than crashing the page over a banner.
-    return UNKNOWN;
-  }
-}
-
-function getServerSnapshot(): string {
-  return UNKNOWN;
-}
+import {
+  getCookieConsentServerSnapshot,
+  getCookieConsentSnapshot,
+  isCloudflareBeaconLoaded,
+  OPEN_PREFERENCES_EVENT,
+  persistCookieConsent,
+  STORAGE_KEY,
+  subscribeCookieConsent,
+  type CookieConsentChoice,
+} from '@/lib/cookie-consent';
 
 export default function CookieBanner() {
   /*
@@ -39,19 +24,73 @@ export default function CookieBanner() {
    * immediately afterwards. Doing this with useEffect + setState would trigger
    * a cascading render.
    */
-  const stored = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const stored = useSyncExternalStore(
+    subscribeCookieConsent,
+    getCookieConsentSnapshot,
+    getCookieConsentServerSnapshot
+  );
   const [dismissed, setDismissed] = useState(false);
+  const [forceOpen, setForceOpen] = useState(false);
 
-  const isVisible = stored === '' && !dismissed;
+  useEffect(() => {
+    const open = () => {
+      setForceOpen(true);
+      setDismissed(false);
+    };
+    window.addEventListener(OPEN_PREFERENCES_EVENT, open);
+    return () => window.removeEventListener(OPEN_PREFERENCES_EVENT, open);
+  }, []);
 
-  const record = useCallback((choice: 'accepted' | 'declined') => {
-    try {
-      localStorage.setItem(STORAGE_KEY, choice);
-    } catch {
-      /* see getSnapshot */
-    }
+  useEffect(() => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== STORAGE_KEY) return;
+      if (event.oldValue !== 'accepted' || event.newValue !== 'declined') return;
+      if (!isCloudflareBeaconLoaded()) return;
+      window.location.reload();
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  const isVisible = forceOpen || (stored === '' && !dismissed);
+
+  const closeBanner = useCallback(() => {
+    setForceOpen(false);
     setDismissed(true);
   }, []);
+
+  const record = useCallback(
+    (choice: CookieConsentChoice) => {
+      let previous: string | null = null;
+      try {
+        previous = localStorage.getItem(STORAGE_KEY);
+      } catch {
+        /* see getCookieConsentSnapshot */
+      }
+
+      const beaconWasLoaded = isCloudflareBeaconLoaded();
+
+      try {
+        persistCookieConsent(choice);
+      } catch {
+        /* storage unavailable */
+        closeBanner();
+        return;
+      }
+
+      if (
+        choice === 'declined' &&
+        previous === 'accepted' &&
+        beaconWasLoaded
+      ) {
+        window.location.reload();
+        return;
+      }
+
+      closeBanner();
+    },
+    [closeBanner]
+  );
 
   return (
     <AnimatePresence>
